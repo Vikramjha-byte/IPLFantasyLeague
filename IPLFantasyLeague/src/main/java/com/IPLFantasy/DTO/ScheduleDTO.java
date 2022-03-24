@@ -1,5 +1,7 @@
 package com.IPLFantasy.DTO;
 
+import java.util.Date;
+
 import com.IPLFantasy.entities.TeamDetails;
 
 public class ScheduleDTO {
@@ -9,11 +11,18 @@ public class ScheduleDTO {
 	private String start_time;
 	private String end_time;
 	private String result;
+	private Date Match_date;
 	public Integer getMatch_id() {
 		return match_id;
 	}
 	public void setMatch_id(Integer match_id) {
 		this.match_id = match_id;
+	}
+	public Date getMatch_date() {
+		return Match_date;
+	}
+	public void setMatch_date(Date match_date) {
+		Match_date = match_date;
 	}
 	public TeamDetails getTeamdetails() {
 		return teamdetails;
@@ -48,6 +57,7 @@ public class ScheduleDTO {
 	@Override
 	public String toString() {
 		return "ScheduleDTO [match_id=" + match_id + ", teamdetails=" + teamdetails + ", teamdetails2=" + teamdetails2
-				+ ", start_time=" + start_time + ", end_time=" + end_time + ", result=" + result + "]";
+				+ ", start_time=" + start_time + ", end_time=" + end_time + ", result=" + result + ", Match_date="
+				+ Match_date + "]";
 	}
 }
