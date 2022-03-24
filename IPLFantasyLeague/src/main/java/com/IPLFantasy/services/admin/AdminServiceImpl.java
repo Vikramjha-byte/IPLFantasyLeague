@@ -55,9 +55,10 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Boolean loginAdmin(Admin login) throws UsernameNotFoundException, IncorrectPasswordException {
+	public Boolean loginAdmin(int username,String password) throws UsernameNotFoundException, IncorrectPasswordException {
 		// TODO Auto-generated method stub
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
+		Admin login= new Admin();
 		Admin adment = adminDao.findByUsername(login.getUsername());
 		if(adment==null) {
 			throw new UsernameNotFoundException("username not found");
