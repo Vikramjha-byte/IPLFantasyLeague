@@ -16,4 +16,5 @@ public interface BidderService {
 	public Bidder registerBidder(Bidder bidder) ;
 
 	public Bidder getBidder(int username,String password) ;
+	public List<ScheduleDTO>
 }
