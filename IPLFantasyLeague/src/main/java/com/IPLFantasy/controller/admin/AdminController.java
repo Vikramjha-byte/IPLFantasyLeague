@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.IPLFantasy.entities.Admin;
@@ -32,9 +33,9 @@ public class AdminController {
 	private AdminService adminService;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> loginAdmin(@RequestBody Admin login)
+	public ResponseEntity<String> loginAdmin(@RequestParam int userId, String password)
 			throws UsernameNotFoundException, IncorrectPasswordException {
-		adminService.loginAdmin(login);
+		adminService.loginAdmin(userId,password);
 		return new ResponseEntity<String>("logged in", HttpStatus.OK);
 	}
 
