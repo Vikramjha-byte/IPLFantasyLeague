@@ -29,8 +29,8 @@ public class MatchSchedule {
 
 	private String start_time;
 	private String end_time;
-	private String result = "pending";
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private String result;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date match_date;
 
 	public String getStart_time() {

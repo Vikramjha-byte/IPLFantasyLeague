@@ -122,4 +122,10 @@ public class AdminServiceImpl implements AdminService {
 		admin.setUsername(admin.getUsername());
 		return adminDao.save(admin);
 	}
+
+	@Override
+	public List<TeamDetails> getTeams() {
+		// TODO Auto-generated method stub
+		return teamDao.findAll();
+	}
 }

@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.IPLFantasy.entities.Admin;
+import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.MatchSchedule;
 
@@ -49,9 +51,17 @@ public class AdminController {
 			throws UsernameNotFoundException, IncorrectPasswordException {
 		adminService.loginAdmin(admin);
 		
-		return new ModelAndView("adminPage","msg",new ResponseEntity<String>("logged in",HttpStatus.OK));
+		return new ModelAndView("redirect:dashboard","msg",new ResponseEntity<String>("logged in",HttpStatus.OK));
 	}
-
+	@GetMapping("/dashboard")
+	public String getBidderDashboard(Model model) {
+		System.out.println(model.getAttribute("msg"));
+		List<Admin> admins= adminService.getAdmindetails();
+		model.addAttribute("adminlist",admins);
+		List<TeamDetails> teams = adminService.getTeams();
+		model.addAttribute("teamlist",teams);
+		return "adminpage";
+	}
 	@GetMapping("/details")
 	public List<Admin> getAdmindetails() {
 		return adminService.getAdmindetails();
@@ -63,17 +73,23 @@ public class AdminController {
 		adminService.createTournaments(tournaments);
 		return new ResponseEntity<String>("Tournament Created Successfully!!!", HttpStatus.OK);
 	}
+	
 
 	@PostMapping("/createTeams")
-	public ResponseEntity<String> createTeams(@RequestBody TeamDetails team) {
+	public String createTeams( TeamDetails team) {
 		adminService.createTeams(team);
-		return new ResponseEntity<String>("Team Created Successfully!!!", HttpStatus.OK);
+	ResponseEntity<String> entity= new 	ResponseEntity<String>("Team Created Successfully!!!", HttpStatus.OK);
+		
+	return "redirect:dashboard#teams";
 	}
 
 	@PostMapping("/match-schedule")
-	public ResponseEntity<String> schedulematch(@RequestBody MatchSchedule match) {
+	public String schedulematch( MatchSchedule match) {
+		
 		adminService.scheduleMatch(match);
-		return new ResponseEntity<String>("Match Scheduled Successfully!!!", HttpStatus.OK);
+		
+		ResponseEntity<String> entity=new  ResponseEntity<String>("Match Scheduled Successfully!!!", HttpStatus.OK);
+	return "redirect:dashboard#smatch";
 	}
 
 	@PutMapping("/match-reschedule/{match_id}")
@@ -88,7 +104,7 @@ public class AdminController {
 		return new ResponseEntity<String>("Team updated Successfully!!!", HttpStatus.OK);
 	}
 
-	@DeleteMapping("/update-team/{match_id}")
+	@DeleteMapping("/update-match/{match_id}")
 	public ResponseEntity<String> CancelMatch(@PathVariable Integer match_id) {
 		adminService.cancelMatch(match_id);
 		return new ResponseEntity<>("Match canceled!!!", HttpStatus.OK);
@@ -99,8 +115,10 @@ public class AdminController {
 		adminService.matchResult(points);
 		return new ResponseEntity<String>("Result Added Successfully!!!", HttpStatus.OK);
 	}
-	@GetMapping("/biddings")
-	public ResponseEntity<?> getBiddings(){
-		return new ResponseEntity<>(adminService.getBiddings(),HttpStatus.OK);
+	@GetMapping("/dashboard#lstbid")
+	public String getBiddings(Model model){
+		List<Bid> biddings = adminService.getBiddings();
+		model.addAttribute("lstbid",biddings);
+		return "dashboard#lstbid";
 	}
 }

@@ -35,4 +35,6 @@ public interface AdminService {
 
 	public Admin registerBidder(Admin admin);
 
+	public List<TeamDetails> getTeams();
+
 }

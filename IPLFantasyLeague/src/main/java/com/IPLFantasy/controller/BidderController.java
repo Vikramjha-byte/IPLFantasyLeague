@@ -55,8 +55,15 @@ public class BidderController {
 	public ModelAndView loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
 		service.loginBidder(login);
 
-		return new ModelAndView("bidderPage", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
+		return new ModelAndView("redirect:dashboard", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
 
+	}
+	@GetMapping("/dashboard")
+	public String getBidderDashboard(Model model) {
+		System.out.println(model.getAttribute("msg"));
+		List<Bidder> listBidders = service.getBidders();
+		model.addAttribute("bidderlist", listBidders);
+		return "bidderpage";
 	}
 
 	@GetMapping("/list_bidders")
