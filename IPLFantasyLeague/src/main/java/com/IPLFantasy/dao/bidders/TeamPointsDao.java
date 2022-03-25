@@ -4,10 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.IPLFantasy.entities.MatchSchedule;
-
+import com.IPLFantasy.entities.TeamPoints;
 
 @Repository
-public interface MatchScheduleDao extends CrudRepository<MatchSchedule, Integer>, JpaRepository<MatchSchedule, Integer> {
+public interface TeamPointsDao extends CrudRepository<TeamPoints, Integer>,JpaRepository<TeamPoints, Integer> {
 
 }

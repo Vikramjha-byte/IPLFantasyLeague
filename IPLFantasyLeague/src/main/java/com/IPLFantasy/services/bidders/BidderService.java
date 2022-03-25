@@ -2,13 +2,15 @@ package com.IPLFantasy.services.bidders;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
-import com.IPLFantasy.dao.bidders.BidderDao;
 import com.IPLFantasy.entities.Bidder;
+import com.IPLFantasy.entities.Leaderboard;
+import com.IPLFantasy.entities.Match;
+import com.IPLFantasy.entities.TeamPoints;
+
+
+
 
 
 
@@ -23,5 +25,15 @@ public interface BidderService {
 	public List<ScheduleDTO> getScheduled();
 
 	public void userBid(BidDTO biddto);
+
+	public List<Match> getMatchsDetails();
+
+	public void cancelBid(Integer b_id);
+
+	public List<TeamPoints> getTeamPoints();
+
+	public List<Leaderboard> getBidderBoard();
+
+	
 
 }

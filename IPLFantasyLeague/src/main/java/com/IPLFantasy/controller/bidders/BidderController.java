@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -109,5 +111,25 @@ public class BidderController {
 		return new ResponseEntity<>("BID Successful!!",HttpStatus.OK);
 	}
 
+	@GetMapping("/match_details")
+	public ResponseEntity<?> getMatchDetails(){
+		return new ResponseEntity<>(service.getMatchsDetails(),HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/cancle_bid/{b_id}")
+	public ResponseEntity<String> cancelBid(@PathVariable Integer b_id) {
+		service.cancelBid(b_id);
+		return new ResponseEntity<String>("Bid Canceld!!",HttpStatus.OK);
+	}
+	
+	@GetMapping("/view_leader_board_team")
+	public ResponseEntity<?> getLeaderBoard(){
+		return new ResponseEntity<>(service.getTeamPoints(),HttpStatus.OK);	
+	}
+	
+	@GetMapping("/view_leader_board_bidder")
+	public ResponseEntity<?> getBidderLeaderBoard(){
+		return new ResponseEntity<>(service.getBidderBoard(),HttpStatus.OK);	
+	}
 }
 

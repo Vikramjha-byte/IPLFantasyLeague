@@ -1,60 +1,89 @@
 package com.IPLFantasy.entities;
 
+import java.sql.Time;
 import java.util.Date;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Match {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int matchId;
-	public String teamOne;
-	public String teamTwo;
-	public Date date;
-	public String stadium;
-	public String winner;
+	private Integer match_id;
+	@OneToOne
+	@JoinColumn(name = "team_one")
+	private TeamDetails teamdetails;
 
-	public void setMatchId(int matchId) {
-		this.matchId = matchId;
+	@OneToOne
+	@JoinColumn(name = "team_two")
+	private TeamDetails teamdetails2;
+
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	private Date match_date;
+
+	private Time match_time;
+	@Column(length = 150)
+	private String match_stadium;
+	private String winner;
+	private String status;
+	private String delay;
+
+	public Integer getMatch_id() {
+		return match_id;
 	}
 
-	public String getTeamOne() {
-		return teamOne;
+	public void setMatch_id(Integer match_id) {
+		this.match_id = match_id;
 	}
 
-	public void setTeamOne(String teamOne) {
-		this.teamOne = teamOne;
+	public TeamDetails getTeamdetails() {
+		return teamdetails;
 	}
 
-	public String getTeamTwo() {
-		return teamTwo;
+	public void setTeamdetails(TeamDetails teamdetails) {
+		this.teamdetails = teamdetails;
 	}
 
-	public void setTeamTwo(String teamTwo) {
-		this.teamTwo = teamTwo;
+	public TeamDetails getTeamdetails2() {
+		return teamdetails2;
 	}
 
-	public Date getDate() {
-		return date;
+	public void setTeamdetails2(TeamDetails teamdetails2) {
+		this.teamdetails2 = teamdetails2;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public Date getMatch_date() {
+		return match_date;
 	}
 
-	public String getStadium() {
-		return stadium;
+	public void setMatch_date(Date match_date) {
+		this.match_date = match_date;
 	}
 
-	public void setStadium(String stadium) {
-		this.stadium = stadium;
+	public Time getMatch_time() {
+		return match_time;
+	}
+
+	public void setMatch_time(Time match_time) {
+		this.match_time = match_time;
+	}
+
+	public String getMatch_stadium() {
+		return match_stadium;
+	}
+
+	public void setMatch_stadium(String match_stadium) {
+		this.match_stadium = match_stadium;
 	}
 
 	public String getWinner() {
@@ -65,10 +94,27 @@ public class Match {
 		this.winner = winner;
 	}
 
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getDelay() {
+		return delay;
+	}
+
+	public void setDelay(String delay) {
+		this.delay = delay;
+	}
+
 	@Override
 	public String toString() {
-		return "Match [matchId=" + matchId + ", teamOne=" + teamOne + ", teamTwo=" + teamTwo + ", date=" + date
-				+ ", stadium=" + stadium + ", winner=" + winner + "]";
+		return "Match [match_id=" + match_id + ", teamdetails=" + teamdetails + ", teamdetails2=" + teamdetails2
+				+ ", match_date=" + match_date + ", match_time=" + match_time + ", match_stadium=" + match_stadium
+				+ ", winner=" + winner + ", status=" + status + ", delay=" + delay + "]";
 	}
 
 }

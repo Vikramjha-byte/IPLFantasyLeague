@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import com.IPLFantasy.entities.Match;
 
+@Repository
 public interface MatchDao extends CrudRepository<Match, Integer> {
 
 }
