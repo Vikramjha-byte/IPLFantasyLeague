@@ -78,7 +78,7 @@ public class BidderController {
 		return msg;
 	}
 
-	@PostMapping("/loginn")
+	@PostMapping("/login")
 	public String loginBidder(@RequestParam int userId, String password) {
 
 		String msg = "";

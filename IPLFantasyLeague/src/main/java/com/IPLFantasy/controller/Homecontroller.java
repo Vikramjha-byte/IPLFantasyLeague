@@ -11,4 +11,19 @@ public class Homecontroller {
 		return "index";
 		
 	}
+	@GetMapping("/bidder")
+	public String getBidderPage() {
+		return "bidder";
+		
+	}
+	@GetMapping("/admin")
+	public String getAdminPage() {
+		return "admin";
+		
+	}
+	@GetMapping("/guest")
+	public String getGuestPage() {
+		return "guest";
+		
+	}
 }

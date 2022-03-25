@@ -33,7 +33,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
-	@PostMapping("/loginn")
+	@PostMapping("/login")
 	public ResponseEntity<String> loginAdmin(@RequestParam int userId, String password)
 			throws UsernameNotFoundException, IncorrectPasswordException {
 		adminService.loginAdmin(userId,password);
