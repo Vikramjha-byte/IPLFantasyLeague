@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,9 +15,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.IPLFantasy.entities.Admin;
+import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.MatchSchedule;
 
 import com.IPLFantasy.entities.TeamDetails;
@@ -32,12 +36,20 @@ public class AdminController {
 
 	@Autowired
 	private AdminService adminService;
+	@PostMapping("/register")
+	public String registerBidder(Admin admin) {
+		
+		adminService.registerBidder(admin);
+
+		return "admin_register_success";
+	}
 
 	@PostMapping("/login")
-	public ResponseEntity<String> loginAdmin(@RequestParam int userId, String password)
+	public ModelAndView loginAdmin(Admin admin )
 			throws UsernameNotFoundException, IncorrectPasswordException {
-		adminService.loginAdmin(userId,password);
-		return new ResponseEntity<String>("logged in", HttpStatus.OK);
+		adminService.loginAdmin(admin);
+		
+		return new ModelAndView("adminPage","msg",new ResponseEntity<String>("logged in",HttpStatus.OK));
 	}
 
 	@GetMapping("/details")

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.IPLFantasy.DTO.BidDTO;
@@ -15,10 +17,13 @@ import com.IPLFantasy.dao.LeaderboardDao;
 import com.IPLFantasy.dao.MatchDao;
 import com.IPLFantasy.dao.MatchScheduleDao;
 import com.IPLFantasy.dao.TeamPointsDao;
+import com.IPLFantasy.entities.Admin;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.TeamPoints;
+import com.IPLFantasy.exceptions.IncorrectPasswordException;
+import com.IPLFantasy.exceptions.UsernameNotFoundException;
 import com.IPLFantasy.utils.BidUtils;
 import com.IPLFantasy.utils.MatchScheduleUtils;
 
@@ -48,11 +53,7 @@ public class BidderserviceImpl implements BidderService {
 		return dao.save(bidder);
 	}
 
-	@Override
-	public Bidder getBidder(int username, String password) {
-		// TODO Auto-generated method stub
-		return dao.getBidder(username, password);
-	}
+	
 
 	@Override
 	public List<ScheduleDTO> getScheduled() {
@@ -89,6 +90,29 @@ public class BidderserviceImpl implements BidderService {
 	public List<Leaderboard> getBidderBoard() {
 		// TODO Auto-generated method stub
 		return (List<Leaderboard>) lDao.findAll();
+	}
+
+	@Override
+	public List<Bidder> getBidders() {
+		
+		return dao.findAll();
+	}
+
+	@Override
+	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
+		PasswordEncoder passencoder = new BCryptPasswordEncoder();
+		
+		Bidder bident = dao.findByUserName(login.getUserName());
+		if(bident==null) {
+			throw new UsernameNotFoundException("username not found");
+		}
+		else{			
+			if(!passencoder.matches(login.getPassword(), bident.getPassword())){
+				throw new IncorrectPasswordException("incorrrect password");
+			}
+		return null;
+	}
+	
 	}
 
 }

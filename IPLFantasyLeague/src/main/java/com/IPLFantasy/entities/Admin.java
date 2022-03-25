@@ -18,7 +18,6 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int admin_id;
 	@Column(unique = true, length = 40)
-
 	private String username;
 	@Column(length = 100)
 	private String password;

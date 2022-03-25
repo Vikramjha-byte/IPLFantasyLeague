@@ -8,20 +8,15 @@ import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.TeamPoints;
-
-
-
-
-
+import com.IPLFantasy.exceptions.IncorrectPasswordException;
+import com.IPLFantasy.exceptions.UsernameNotFoundException;
 
 public interface BidderService {
 
+	public Bidder registerBidder(Bidder bidder);
+
 	
 
-	public Bidder registerBidder(Bidder bidder) ;
-
-	public Bidder getBidder(int username,String password) ;
-	
 	public List<ScheduleDTO> getScheduled();
 
 	public void userBid(BidDTO biddto);
@@ -34,6 +29,8 @@ public interface BidderService {
 
 	public List<Leaderboard> getBidderBoard();
 
-	
+	public List<Bidder> getBidders();
+
+	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException;
 
 }

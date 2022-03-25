@@ -55,16 +55,16 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Boolean loginAdmin(int username,String password) throws UsernameNotFoundException, IncorrectPasswordException {
+	public Boolean loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException {
 		// TODO Auto-generated method stub
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
-		Admin login= new Admin();
-		Admin adment = adminDao.findByUsername(login.getUsername());
+	
+		Admin adment = adminDao.findByUsername(admin.getUsername());
 		if(adment==null) {
 			throw new UsernameNotFoundException("username not found");
 		}
 		else{			
-			if(!passencoder.matches(login.getPassword(), adment.getPassword())){
+			if(!passencoder.matches(admin.getPassword(), adment.getPassword())){
 				throw new IncorrectPasswordException("incorrrect password");
 			}
 		return null;
@@ -111,5 +111,15 @@ public class AdminServiceImpl implements AdminService {
 	public List<Bid> getBiddings() {
 		// TODO Auto-generated method stub
 		return bidDao.findAll();
+	}
+
+	@Override
+	public Admin registerBidder(Admin admin) {
+		// TODO Auto-generated method stub
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String encodedString = encoder.encode(admin.getPassword());
+		admin.setPassword(encodedString);
+		admin.setUsername(admin.getUsername());
+		return adminDao.save(admin);
 	}
 }

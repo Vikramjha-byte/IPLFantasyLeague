@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html-5>
+<html xmlns:th="http://www.thymeLeaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" type="text/css" href="/css/style.css"/>
@@ -9,9 +9,9 @@
 <body>
 <h1 class="main_title">Welcome to IPL Fantasy League</h1>
  <div class="wrap">
-    <a class="btn-0" href="bidder">Bidder</a>
-    <a class="btn-1" href="admin">Admin</a>
-    <a class="btn-1-2" href="guest">Guest</a>
+    <a class="btn-0" th:href="@{bidder}">Bidder</a>
+    <a class="btn-1" th:href="@{admin}">Admin</a>
+    <a class="btn-1-2" th:href="@{guest}">Guest</a>
   </div>
 </body>
 </html>

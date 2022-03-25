@@ -17,7 +17,7 @@ public interface AdminService {
 
 	public void createTeams(TeamDetails team);
 
-	Boolean loginAdmin(int username,String password) throws UsernameNotFoundException, IncorrectPasswordException;
+	Boolean loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException;
 
 	public List<Admin> getAdmindetails();
 
@@ -32,5 +32,7 @@ public interface AdminService {
 	public void matchResult(TeamPoints points);
 
 	public List<Bid> getBiddings();
+
+	public Admin registerBidder(Admin admin);
 
 }

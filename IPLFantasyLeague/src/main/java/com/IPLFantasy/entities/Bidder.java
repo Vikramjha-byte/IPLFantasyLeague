@@ -2,21 +2,34 @@ package com.IPLFantasy.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Generated;
 
 @Entity
 public class Bidder {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int bidderId;
-	@Column(nullable = false)
+	@Column(nullable = false,length=20)
 	private String userName;
-	@Column(nullable = false)
+	@Column(nullable = false ,length=64)
 	private String password;
-	@Column(nullable = false)
+	@Column(nullable = false,length=20)
+	@NotBlank
+	@Size(min = 3,max = 20)
 	public String name;
 	@Column(nullable = false)
+	@NotBlank
+	@Size(min = 3,max = 20)
 	public String email;
 	@Column(nullable = false)
+	@NotBlank
+	@Size(min = 3,max = 20)
 	private String phoneNo;
 
 //	@ManyToOne(cascade = CascadeType.ALL)
