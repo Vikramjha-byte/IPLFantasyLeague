@@ -1,4 +1,4 @@
-package com.IPLFantasy.services.bidders;
+package com.IPLFantasy.services.admin;
 
 import java.util.Comparator;
 import java.util.List;
@@ -9,12 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
-import com.IPLFantasy.dao.admin.BidDao;
-import com.IPLFantasy.dao.admin.MatchDao;
-import com.IPLFantasy.dao.admin.MatchScheduleDAO;
-import com.IPLFantasy.dao.admin.TeamPointsDao;
-import com.IPLFantasy.dao.bidders.BidderDao;
-import com.IPLFantasy.dao.bidders.LeaderboardDao;
+import com.IPLFantasy.dao.BidDao;
+import com.IPLFantasy.dao.BidderDao;
+import com.IPLFantasy.dao.LeaderboardDao;
+import com.IPLFantasy.dao.MatchDao;
+import com.IPLFantasy.dao.MatchScheduleDao;
+import com.IPLFantasy.dao.TeamPointsDao;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
@@ -29,7 +29,7 @@ public class BidderserviceImpl implements BidderService {
 	private BidderDao dao;
 
 	@Autowired
-	private MatchScheduleDAO scheduleDAO;
+	private MatchScheduleDao scheduleDAO;
 
 	@Autowired
 	private BidDao bidDao;

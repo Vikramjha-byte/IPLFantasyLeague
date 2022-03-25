@@ -1,4 +1,4 @@
-package com.IPLFantasy.controller.admin;
+package com.IPLFantasy.controller;
 
 import java.util.List;
 

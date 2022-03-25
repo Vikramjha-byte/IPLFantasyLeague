@@ -1,12 +1,12 @@
-package com.IPLFantasy.dao.admin;
+package com.IPLFantasy.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.IPLFantasy.entities.Match;
+import com.IPLFantasy.entities.Bid;
 
 @Repository
-public interface MatchDao extends CrudRepository<Match, Integer>,JpaRepository<Match, Integer> {
+public interface BidDao extends CrudRepository<Bid, Integer>,JpaRepository<Bid, Integer>{
 
 }

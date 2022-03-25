@@ -1,4 +1,4 @@
-package com.IPLFantasy.services.system;
+package com.IPLFantasy.services.admin;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.IPLFantasy.DTO.MatchStatsDto;
-import com.IPLFantasy.dao.bidders.MatchDao;
+import com.IPLFantasy.dao.MatchDao;
 import com.IPLFantasy.utils.TeamStatsUtils;
 
 

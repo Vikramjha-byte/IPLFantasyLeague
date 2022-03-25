@@ -1,4 +1,4 @@
-package com.IPLFantasy.controller.System;
+package com.IPLFantasy.controller;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.IPLFantasy.DTO.MatchStatsDto;
-import com.IPLFantasy.services.system.SystemService;
+import com.IPLFantasy.services.admin.SystemService;
 
 
 public class SystemController {

@@ -7,12 +7,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.IPLFantasy.dao.admin.AdminDao;
-import com.IPLFantasy.dao.admin.BidDao;
-import com.IPLFantasy.dao.admin.MatchScheduleDAO;
-import com.IPLFantasy.dao.admin.TeamDao;
-import com.IPLFantasy.dao.admin.TeamPointsDao;
-import com.IPLFantasy.dao.admin.TournamentDao;
+import com.IPLFantasy.dao.AdminDao;
+import com.IPLFantasy.dao.BidDao;
+import com.IPLFantasy.dao.MatchScheduleDao;
+import com.IPLFantasy.dao.TeamDao;
+import com.IPLFantasy.dao.TeamPointsDao;
+import com.IPLFantasy.dao.TournamentDao;
 import com.IPLFantasy.entities.Admin;
 import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.MatchSchedule;
@@ -36,7 +36,7 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
 	
 	@Autowired
-	private MatchScheduleDAO scheduleDAO;
+	private MatchScheduleDao scheduleDAO;
 	
 	@Autowired
 	TeamPointsDao pointsDao;

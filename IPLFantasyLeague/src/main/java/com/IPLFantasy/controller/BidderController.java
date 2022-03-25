@@ -1,4 +1,4 @@
-package com.IPLFantasy.controller.bidders;
+package com.IPLFantasy.controller;
 
 import java.util.List;
 import java.util.Random;
@@ -21,7 +21,7 @@ import com.IPLFantasy.DTO.ScheduleDTO;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.exceptions.LoginException;
 import com.IPLFantasy.exceptions.RegistrationException;
-import com.IPLFantasy.services.bidders.BidderService;
+import com.IPLFantasy.services.admin.BidderService;
 
 
 @RestController

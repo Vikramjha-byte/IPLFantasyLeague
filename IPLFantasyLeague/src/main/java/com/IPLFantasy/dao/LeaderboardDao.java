@@ -1,4 +1,4 @@
-package com.IPLFantasy.dao.bidders;
+package com.IPLFantasy.dao;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

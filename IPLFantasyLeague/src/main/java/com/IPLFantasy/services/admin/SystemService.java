@@ -1,4 +1,4 @@
-package com.IPLFantasy.services.system;
+package com.IPLFantasy.services.admin;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.IPLFantasy.controller.Exception;
+package com.IPLFantasy.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import com.IPLFantasy.exceptions.UserAlreadyExistException;
 import com.IPLFantasy.exceptions.UserNameAlreadyExistException;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class ExceptionController {
 
 	@ExceptionHandler(UserAlreadyExistException.class)
 	public ResponseEntity<String> InvalidInputException(UserAlreadyExistException excep) {
