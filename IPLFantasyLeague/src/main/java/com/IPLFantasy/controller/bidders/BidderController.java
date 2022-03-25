@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.exceptions.LoginException;
 import com.IPLFantasy.exceptions.RegistrationException;
 import com.IPLFantasy.services.bidders.BidderService;
+
 
 @RestController
 @RequestMapping("/bidder")
@@ -98,7 +100,13 @@ public class BidderController {
 	@GetMapping("/matches-schedule")
 	public ResponseEntity<List<ScheduleDTO>> getMatchSchedule()
 	{
-		return new ResponseEntity<>(userservice.getMatchsScheduled(),HttpStatus.OK);
+		return new ResponseEntity<>(service.getScheduled(),HttpStatus.OK);
+	}
+	
+	@PostMapping("/bid")
+	public ResponseEntity<String> userBid(@RequestBody BidDTO biddto){
+		service.userBid(biddto);
+		return new ResponseEntity<>("BID Successful!!",HttpStatus.OK);
 	}
 
 }
