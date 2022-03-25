@@ -23,7 +23,7 @@ import com.IPLFantasy.entities.TeamPoints;
 import com.IPLFantasy.entities.Tournaments;
 import com.IPLFantasy.exceptions.IncorrectPasswordException;
 import com.IPLFantasy.exceptions.UsernameNotFoundException;
-import com.IPLFantasy.services.admin.AdminService;
+import com.IPLFantasy.services.AdminService;
 
 @RestController
 @RequestMapping("/admin")

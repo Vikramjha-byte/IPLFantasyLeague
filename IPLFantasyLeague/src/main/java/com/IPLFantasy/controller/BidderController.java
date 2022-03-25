@@ -21,7 +21,7 @@ import com.IPLFantasy.DTO.ScheduleDTO;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.exceptions.LoginException;
 import com.IPLFantasy.exceptions.RegistrationException;
-import com.IPLFantasy.services.admin.BidderService;
+import com.IPLFantasy.services.BidderService;
 
 
 @RestController

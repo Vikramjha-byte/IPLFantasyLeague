@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.IPLFantasy.DTO.MatchStatsDto;
-import com.IPLFantasy.services.admin.SystemService;
+import com.IPLFantasy.services.SystemService;
 
 
 public class SystemController {

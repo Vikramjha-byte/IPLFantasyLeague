@@ -1,4 +1,4 @@
-package com.IPLFantasy.services.admin;
+package com.IPLFantasy.services;
 
 import java.util.Comparator;
 import java.util.List;
