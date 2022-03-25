@@ -4,12 +4,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.IPLFantasy.DTO.MatchStatsDto;
 import com.IPLFantasy.dao.MatchDao;
 import com.IPLFantasy.utils.TeamStatsUtils;
 
-
+@Service
 public class SystemServiceImpl implements SystemService {
 	
 	@Autowired
