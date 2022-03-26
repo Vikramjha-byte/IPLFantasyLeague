@@ -117,7 +117,7 @@ public class AdminController {
 		return new ResponseEntity<String>("Team updated Successfully!!!", HttpStatus.OK);
 	}
 
-	@PostMapping("/update-match/{match_id}")
+	@GetMapping("/update-match/{match_id}")
 	public ResponseEntity<String> CancelMatch(@RequestParam("match_id") Integer match_id) {
 		adminService.cancelMatch(match_id);
 		return new ResponseEntity<>("Match canceled!!!", HttpStatus.OK);

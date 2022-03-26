@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
+import com.IPLFantasy.dao.BidDao;
+import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
@@ -19,7 +21,7 @@ public interface BidderService {
 
 	public List<ScheduleDTO> getScheduled();
 
-	public void userBid(BidDTO biddto);
+	public void userBid(Bid bid);
 
 	public List<Match> getMatchsDetails();
 
@@ -32,5 +34,9 @@ public interface BidderService {
 	public List<Bidder> getBidders();
 
 	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException;
+
+
+
+	public List<BidDTO> getBid();
 
 }

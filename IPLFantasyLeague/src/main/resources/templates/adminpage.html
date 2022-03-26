@@ -14,567 +14,573 @@
 
 </head>
 <body>
-<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">IPL Fantasy League</a>
-  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
-  <div class="navbar-nav">
-    <div class="nav-item text-nowrap">
-      <a class="nav-link px-3" href="#">Sign out</a>
-    </div>
-  </div>
-</header>
-
-<div class="container-fluid">
-  <div class="row">
-    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="">
-              <span data-feather="home"></span>
-              Admin Dashboard
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#tournaments" onclick="return tournament();">
-              Create Tournaments
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#teams" onclick="return teams();">
-              Create Teams
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#createMatch" onclick="return createMatch();">
-              Create Matches
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#smatch" onclick="return smatch();">
-              Schedule Matches
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#rmatch" onclick="return rmatch();">
-              Reschedule Match
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#uteams" onclick="return uteams();">
-              Update Teams
-            </a>
-          </li>
-        </ul>
-
-        <ul class="nav flex-column mb-2">
-         <li class="nav-item">
-            <a class="nav-link" href="#cnclmtch" onclick="return cnclmtch();">
-              Cancel Match
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#ares" onclick="return ares();">
-              Add Result
-            </a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link" href="#lstbid" onclick="return lstbid();">
-              List Biddings
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main">
-      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
-
-      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-
-      <h2>Admin Details</h2>
-      <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">UserName</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="admin: ${adminlist}">
-              <td th:text="${admin.admin_id}">#</td>
-              <td th:text="${admin.username}">UserName</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </main>
-  </div>
-</div>
-<section id="tournament" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Tournament</h2>
- 
- 
- 
-</section>
-<section id="teams" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Create New Team</h2>
- <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/createTeams} " method="post"
-					>
-					<div class="mb-3">
-						<label for="exampleInputEmail1" class="form-label"
-							style="color: black;">TeamName :</label> <input type="text"
-							name="team_name" class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp" required>
-
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputHG" class="form-label"
-							style="color: black;">Home Ground :</label> <input type="text"
-							name="home_ground" class="form-control" id="exampleInputHG" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputTP" class="form-label"
-							style="color: black;">Team Players :</label> <input type="text"
-							name="team_players" class="form-control" id="exampleInputTP" required="required">
-					</div>
-					
-					<div class="mb-3">
-						<label for="exampleInputcaptain" class="form-label"
-							style="color: black;">Captain :</label> <input type="text"
-							name="captain" class="form-control" id="exampleInputTP" required="required">
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
-							me out</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
+	<header
+		class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+		<a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">IPL
+			Fantasy League</a>
+		<button class="navbar-toggler position-absolute d-md-none collapsed"
+			type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+			aria-controls="sidebarMenu" aria-expanded="false"
+			aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<!-- <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search"> -->
+		<div class="navbar-nav">
+			<div class="nav-item text-nowrap">
+				<a class="nav-link px-3" href="#">Sign out</a>
 			</div>
 		</div>
-	</div>
- 
- 
-</section>
-<section id="createMatch" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Create New Match</h2>
- <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/createMatch} " method="post"
-					>
-					
-					<div class="mb-3">
-						<label for="exampleInputTO" class="form-label"
-							style="color: black;">Team 1 :</label> <select 
-							name="teamdetails" class="form-control" id="exampleInputTO"
-							aria-describedby="emailHelp" required>
-							<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
-							
-							</select>
+	</header>
 
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputT1" class="form-label"
-							style="color: black;">Team 2 :</label> <select 
-							name="teamdetails2" class="form-control" id="exampleInputTO"
-							aria-describedby="emailHelp" required>
-							<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
-							
-							</select></div>
-					<div class="mb-3">
-						<label for="exampleInputMD" class="form-label"
-							style="color: black;">Match Date :</label> <input type="Date"
-							name="match_date" class="form-control" id="exampleInputMD" required="required">
-					</div>
-					
-					<div class="mb-3">
-						<label for="exampleInputMT" class="form-label"
-							style="color: black;">Match Time :</label> <input type="time"
-							name=match_time class="form-control" id="exampleInputMT" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputMS" class="form-label"
-							style="color: black;">Match Stadium :</label> <input type="text"
-							name=match_stadium class="form-control" id="exampleInputMS" required="required">
-					</div>
-						<div class="mb-3">
-						<label for="exampleInputMw" class="form-label"
-							style="color: black;">Match Winner :</label> <input type="text"
-							name=winner class="form-control" id="exampleInputMW" required="required">
-					</div>
-						<div class="mb-3">
-						<label for="exampleInputMs" class="form-label"
-							style="color: black;">Match Status :</label> <select
-							name=status class="form-control" id="exampleInputMs" required="required">
-					<option value="Not yet started" title="Not yet started">Not yet started</option>
-					<option value="Toss" title="Toss">Toss</option>
-					<option value="Innings break" title="Innings break">Innings break</option>
-					<option value="finished" title="finished">finished</option>
-					<option value="Rain" title="Rain">Rain</option>
-					</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputDelay" class="form-label"
-							style="color: black;">Delay :</label> <select
-							name=delay class="form-control" id="exampleInputDelay" required="required">
-					<option value="True" title="True">True</option>
-					<option value="False" title="False">False</option>
-					</select>
-					</div>
-					
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">I agree to create new match</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
-			</div>
+	<div class="container-fluid">
+		<div class="row">
+			<nav id="sidebarMenu"
+				class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+				<div class="position-sticky pt-3">
+					<ul class="nav flex-column">
+						<li class="nav-item"><a class="nav-link active"
+							aria-current="page" href=""> <span data-feather="home"></span>
+								Admin Dashboard
+						</a></li>
+						<li class="nav-item"><a class="nav-link" href="#tournaments"
+							onclick="return tournament();"> Create Tournaments </a></li>
+						<li class="nav-item"><a class="nav-link" href="#teams"
+							onclick="return teams();"> Create Teams </a></li>
+						<li class="nav-item"><a class="nav-link" href="#createMatch"
+							onclick="return createMatch();"> Create Matches </a></li>
+						<li class="nav-item"><a class="nav-link" href="#smatch"
+							onclick="return smatch();"> Schedule Matches </a></li>
+						<li class="nav-item"><a class="nav-link" href="#rmatch"
+							onclick="return rmatch();"> Reschedule Match </a></li>
+						<li class="nav-item"><a class="nav-link" href="#uteams"
+							onclick="return uteams();"> Update Teams </a></li>
+					</ul>
+
+					<ul class="nav flex-column mb-2">
+						<li class="nav-item"><a class="nav-link" href="#cnclmtch"
+							onclick="return cnclmtch();"> Cancel Match </a></li>
+						<li class="nav-item"><a class="nav-link" href="#ares"
+							onclick="return ares();"> Add Result </a></li>
+
+						<li class="nav-item"><a class="nav-link" href="#lstbid"
+							onclick="return lstbid();"> List Biddings </a></li>
+					</ul>
+				</div>
+			</nav>
+
+			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4" id="main">
+				<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Admin Details-----------------------------</h6>
+				<div class="table-responsive">
+					<table class="table table-striped table-sm">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">UserName</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="admin: ${adminlist}">
+								<td th:text="${admin.admin_id}">#</td>
+								<td th:text="${admin.username}">UserName</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</main>
 		</div>
 	</div>
- 
- 
-</section>
-<section id="smatch" style="display: none;" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Schedule Match</h2>
- 
-  <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/match-schedule} " method="post"
-					>
-					
-					<div class="mb-3">
-						<label for="exampleInputTo" class="form-label"
-							style="color: black;">Team 1 :</label> <select
-							name="teamdetails" class="form-control" id="exampleInputTo" required="required">
-							<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
+	<section id="tournament" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------Create New Tournament-----------------------------</h6>
+
+
+
+	</section>
+	<section id="teams" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------------Create
+			New Team--------------------------------</h6>
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3">
+					<form th:action="@{/admin/createTeams} " method="post">
+						<div class="mb-3">
+							<label for="exampleInputEmail1" class="form-label"
+								style="color: black;">TeamName :</label> <input type="text"
+								name="team_name" class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" required>
+
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputHG" class="form-label"
+								style="color: black;">Home Ground :</label> <input type="text"
+								name="home_ground" class="form-control" id="exampleInputHG"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputTP" class="form-label"
+								style="color: black;">Team Players :</label> <input type="text"
+								name="team_players" class="form-control" id="exampleInputTP"
+								required="required">
+						</div>
+
+						<div class="mb-3">
+							<label for="exampleInputcaptain" class="form-label"
+								style="color: black;">Captain :</label> <input type="text"
+								name="captain" class="form-control" id="exampleInputTP"
+								required="required">
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">Check me out</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-center">Create
+								new Team</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+	<section id="createMatch" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------------Create
+			New Match--------------------------------</h6>
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3">
+					<form th:action="@{/admin/createMatch} " method="post">
+
+						<div class="mb-3">
+							<label for="exampleInputTO" class="form-label"
+								style="color: black;">Team 1 :</label> <select
+								name="teamdetails" class="form-control" id="exampleInputTO"
+								aria-describedby="emailHelp" required>
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
+
 							</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputTt" class="form-label"
-							style="color: black;">Team 2 :</label> <select
-							name="teamdetails2" class="form-control" id="exampleInputTt" required="required">
-					<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
-					</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputst" class="form-label"
-							style="color: black;">Start Time :</label> <input type="time"
-							name="start_time" class="form-control" id="exampleInputst" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputet" class="form-label"
-							style="color: black;">End Time :</label> <input type="time"
-							name="end_time" class="form-control" id="exampleInputet" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputResult" class="form-label"
-							style="color: black;">Result :</label> <select 
-							name="result" class="form-control" id="exampleInputResult" required="required">
-							<option>Pending</option>
-							<option>Team 1 Won</option>
-							<option>Team 2 Won</option>
-							<option>Cancelled</option>
-							<option>Rescheduled</option>
+
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputT1" class="form-label"
+								style="color: black;">Team 2 :</label> <select
+								name="teamdetails2" class="form-control" id="exampleInputTO"
+								aria-describedby="emailHelp" required>
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
+
 							</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputdate" class="form-label"
-							style="color: black;">Match Date :</label> <input type="date"
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputMD" class="form-label"
+								style="color: black;">Match Date :</label> <input type="Date"
+								name="match_date" class="form-control" id="exampleInputMD"
+								required="required">
+						</div>
+
+						<div class="mb-3">
+							<label for="exampleInputMT" class="form-label"
+								style="color: black;">Match Time :</label> <input type="time"
+								name=match_time class="form-control" id="exampleInputMT"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputMS" class="form-label"
+								style="color: black;">Match Stadium :</label> <input type="text"
+								name=match_stadium class="form-control" id="exampleInputMS"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputMw" class="form-label"
+								style="color: black;">Match Winner :</label> <input type="text"
+								name=winner class="form-control" id="exampleInputMW"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputMs" class="form-label"
+								style="color: black;">Match Status :</label> <select name=status
+								class="form-control" id="exampleInputMs" required="required">
+								<option value="Not yet started" title="Not yet started">Not
+									yet started</option>
+								<option value="Toss" title="Toss">Toss</option>
+								<option value="Innings break" title="Innings break">Innings
+									break</option>
+								<option value="finished" title="finished">finished</option>
+								<option value="Rain" title="Rain">Rain</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputDelay" class="form-label"
+								style="color: black;">Delay :</label> <select name=delay
+								class="form-control" id="exampleInputDelay" required="required">
+								<option value="True" title="True">True</option>
+								<option value="False" title="False">False</option>
+							</select>
+						</div>
+
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">I agree to create new match</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-center">Create
+								New Match</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</section>
+	<section id="smatch" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------------Schedule
+			Match--------------------------------</h6>
+
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3">
+					<form th:action="@{/admin/match-schedule} " method="post">
+
+						<div class="mb-3">
+							<label for="exampleInputTo" class="form-label"
+								style="color: black;">Team 1 :</label> <select
+								name="teamdetails" class="form-control" id="exampleInputTo"
+								required="required">
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputTt" class="form-label"
+								style="color: black;">Team 2 :</label> <select
+								name="teamdetails2" class="form-control" id="exampleInputTt"
+								required="required">
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputst" class="form-label"
+								style="color: black;">Start Time :</label> <input type="time"
+								name="start_time" class="form-control" id="exampleInputst"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputet" class="form-label"
+								style="color: black;">End Time :</label> <input type="time"
+								name="end_time" class="form-control" id="exampleInputet"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputResult" class="form-label"
+								style="color: black;">Result :</label> <select name="result"
+								class="form-control" id="exampleInputResult" required="required">
+								<option>Pending</option>
+								<option>Team 1 Won</option>
+								<option>Team 2 Won</option>
+								<option>Cancelled</option>
+								<option>Rescheduled</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputdate" class="form-label"
+								style="color: black;">Match Date :</label> <input type="date"
 								name="match_date" class="form-control" id="exampleInputdate"
 								required="required">
 						</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
-							me out</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">Agree to schedule the match</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-center">Schedule</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
- 
-</section>
-<section id="rmatch" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Reschedule Match</h2>
- 
-  <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/match-schedule} " method="post" th.object="${matchData}"
-					>
-					<div class="mb-3">
-						<label for="exampleInputTo" class="form-label"
-							style="color: black;">Match ID :</label> <select
-							name="match_id"  class="form-control" id="exampleInputTo" required="required">
-							<option></option>
-							<option th:each="match:${mtchschdl}"
-							th:text="${match.match_id}">
-							</option>
+
+	</section>
+	<section id="rmatch" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------------Reschedule
+			Match--------------------------------</h6>
+
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3">
+					<form th:action="@{/admin/match-schedule} " method="post"
+						th.object="${matchData}">
+						<div class="mb-3">
+							<label for="exampleInputTo" class="form-label"
+								style="color: black;">Match ID :</label> <select name="match_id"
+								class="form-control" id="exampleInputTo" required="required">
+								<option></option>
+								<option th:each="match:${mtchschdl}" th:text="${match.match_id}">
+								</option>
 							</select>
-					</div>
-					
-					<div class="mb-3">
-						<label for="exampleInputTo" class="form-label"
-							style="color: black;">Team 1 :</label> <select
-							name="teamdetails"  class="form-control" id="exampleInputTo" required="required">
-							<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
+						</div>
+
+						<div class="mb-3">
+							<label for="exampleInputTo" class="form-label"
+								style="color: black;">Team 1 :</label> <select
+								name="teamdetails" class="form-control" id="exampleInputTo"
+								required="required">
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
 							</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputTt" class="form-label"
-							style="color: black;">Team 2 :</label> <select
-							name="teamdetails2" class="form-control" id="exampleInputTt" required="required">
-					<option></option>
-							<option th:each="team:${teamlist}"
-							th:value="${team.match_id}"
-							th:text="${team.team_name}">
-							</option>
-					</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputst" class="form-label"
-							style="color: black;">Start Time :</label> <input type="time"
-							name="start_time" class="form-control" id="exampleInputst" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputet" class="form-label"
-							style="color: black;">End Time :</label> <input type="time"
-							name="end_time" class="form-control" id="exampleInputet" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputResult" class="form-label"
-							style="color: black;">Result :</label> <select 
-							name="result" class="form-control" id="exampleInputResult" required="required">
-							<option>Pending</option>
-							<option>Team 1 Won</option>
-							<option>Team 2 Won</option>
-							<option>Cancelled</option>
-							<option>Rescheduled</option>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputTt" class="form-label"
+								style="color: black;">Team 2 :</label> <select
+								name="teamdetails2" class="form-control" id="exampleInputTt"
+								required="required">
+								<option></option>
+								<option th:each="team:${teamlist}" th:value="${team.match_id}"
+									th:text="${team.team_name}"></option>
 							</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputdate" class="form-label"
-							style="color: black;">Match Date :</label> <input type="date"
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputst" class="form-label"
+								style="color: black;">Start Time :</label> <input type="time"
+								name="start_time" class="form-control" id="exampleInputst"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputet" class="form-label"
+								style="color: black;">End Time :</label> <input type="time"
+								name="end_time" class="form-control" id="exampleInputet"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputResult" class="form-label"
+								style="color: black;">Result :</label> <select name="result"
+								class="form-control" id="exampleInputResult" required="required">
+								<option>Pending</option>
+								<option>Team 1 Won</option>
+								<option>Team 2 Won</option>
+								<option>Cancelled</option>
+								<option>Rescheduled</option>
+							</select>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputdate" class="form-label"
+								style="color: black;">Match Date :</label> <input type="date"
 								name="match_date" class="form-control" id="exampleInputdate"
 								required="required">
 						</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
-							me out</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">Agree to Re-Schedule the match</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-center">Reschedule</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
- 
-</section>
-<section id="uteams" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Update Team</h2>
-  <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/update-team} " method="post"
-					>
-					<div class="mb-3">
-						<label for="exampleInputTo" class="form-label"
-							style="color: black;">Team ID :</label> <select
-							name="match_id"  class="form-control" id="exampleInputTo" required="required">
-							<option></option>
-							<option th:each="team:${teamlist}"
-							th:text="${team.match_id}">
-							</option>
-							</select>
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputEmail1" class="form-label"
-							style="color: black;">TeamName :</label> <input type="text"
-							name="team_name" class="form-control" id="exampleInputEmail1"
-							aria-describedby="emailHelp" required>
 
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputHG" class="form-label"
-							style="color: black;">Home Ground :</label> <input type="text"
-							name="home_ground" class="form-control" id="exampleInputHG" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputTP" class="form-label"
-							style="color: black;">Team Players :</label> <input type="text"
-							name="team_players" class="form-control" id="exampleInputTP" required="required">
-					</div>
-					<div class="mb-3">
-						<label for="exampleInputcaptain" class="form-label"
-							style="color: black;">Captain :</label> <input type="text"
-							name="captain" class="form-control" id="exampleInputTP" required="required">
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
-							me out</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
-			</div>
+	</section>
+	<section id="uteams" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-	</div>
- 
- 
-</section>
-<section id="cnclmtch" style="display: none;" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Cancel Match</h2>
-  <div class="container">
-		<div class="row mt-5">
-			<div class="col-md-6 offset-md-3">
-				<form th:action="@{/admin/update-match} " method="post"
-					>
-					<div class="mb-3">
-						<label for="exampleInputTo" class="form-label"
-							style="color: black;">Team ID :</label> <select
-							name="match_id"  class="form-control" id="exampleInputTo" required="required">
-							<option></option>
-							<option th:each="match:${mtchschdl}"
-							th:text="${match.match_id}">
-							</option>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------------Update
+			Teams--------------------------------</h6>
+
+		<div class="container">
+			<div class="row mt-5">
+				<div class="col-md-6 offset-md-3">
+					<form th:action="@{/admin/update-team} " method="post">
+						<div class="mb-3">
+							<label for="exampleInputTo" class="form-label"
+								style="color: black;">Team ID :</label> <select name="match_id"
+								class="form-control" id="exampleInputTo" required="required">
+								<option></option>
+								<option th:each="team:${teamlist}" th:text="${team.match_id}">
+								</option>
 							</select>
-					</div>
-					
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">After checking this, you are agree to cancel this match</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
-				</form>
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputEmail1" class="form-label"
+								style="color: black;">TeamName :</label> <input type="text"
+								name="team_name" class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" required>
+
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputHG" class="form-label"
+								style="color: black;">Home Ground :</label> <input type="text"
+								name="home_ground" class="form-control" id="exampleInputHG"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputTP" class="form-label"
+								style="color: black;">Team Players :</label> <input type="text"
+								name="team_players" class="form-control" id="exampleInputTP"
+								required="required">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputcaptain" class="form-label"
+								style="color: black;">Captain :</label> <input type="text"
+								name="captain" class="form-control" id="exampleInputTP"
+								required="required">
+						</div>
+						<div class="mb-3 form-check">
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">Check me out</label>
+						</div>
+						<div class="text-center">
+							<button type="submit" class="btn btn-success btn-lg text-center">Update Team</button>
+						</div>
+					</form>
+				</div>
 			</div>
 		</div>
-	</div>
- 
- 
-</section>
-<section id="ares" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
-      </div>
- <h2>Add Result</h2>
- 
- 
- 
-</section>
-<section id="lstbid" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-        <h1 class="h2">Welcome to Admin DashBoard</h1>
-        <div class="btn-toolbar mb-2 mb-md-0">
-           
-        </div>
-      </div>
- <h2>List Biddings</h2>
- 
- <div class="table-responsive">
-        <table class="table table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">user_opinion1</th>
-              <th scope="col">user_opinion2</th>
-              <th scope="col">match_id</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="lstbid: ${lstbid}">
-              <td th:text="${lstbid.user_id}">#</td>
-              <td th:text="${lstbid.user_opinion1}">user_opinion1</td>
-              <td th:text="${lstbid.user_opinion2}">user_opinion2</td>
-              <td th:text="${lstbid.match_id}">match_id</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
- 
-</section>
-<script type="text/javascript">
+
+
+	</section>
+	<section id="cnclmtch" style="display: none;"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: red; font-weight: bolder; text-align: center;">--------------------------Cancel
+			Match-----------------------------</h6>
+		<div class="table-responsive ">
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Team 1</th>
+						<th scope="col">Team 2</th>
+						<th scope="col">Start Time</th>
+						<th scope="col">End Time</th>
+						<th scope="col">result</th>
+						<th scope="col">match_date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="mtchlist: ${mtchschdl}">
+						<td th:text="${mtchlist.match_id}">#</td>
+						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
+						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
+						<td th:text="${mtchlist.start_time}">#</td>
+						<td th:text="${mtchlist.end_time}">#</td>
+						<td th:text="${mtchlist.result}">#</td>
+						<td th:text="${mtchlist.match_date}">#</td>
+						<td><a
+							style="color: red; text-decoration: none; font-style: bold;"
+							th:href="|@{update-match/{match_id}(match_id=${mtchlist.match_id})}|">Click
+								to cancel</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+	<section id="ares" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">--------------------------Add Result-----------------------------</h6>
+
+
+
+	</section>
+	<section id="lstbid" style="display: none"
+		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+		<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to Admin DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: red; font-weight: bolder; text-align: center;">--------------------------Bids List-----------------------------</h6>
+
+		<div class="table-responsive ">
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th scope="col">#</th>
+						<th scope="col">Winner opinion</th>
+						<th scope="col">Maximum Score opinion</th>
+						<th scope="col">Match Id</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="mtchlist: ${lstbid}">
+						<td th:text="${mtchlist.user_id}">#</td>
+						<td th:text="${mtchlist.user_opinion1}">#</td>
+						<td th:text="${mtchlist.user_opinion2}">#</td>
+						<td th:text="${mtchlist.match_id}">#</td>
+						<td><a th:href="|@{cancel_bid/{b_id}(b_id=${mtchlist.user_id})}|">Cancel bid</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</section>
+	<script type="text/javascript">
     function tournament () {
     	var x = document.getElementById("main");
     	x.style.display="none";
@@ -774,8 +780,16 @@
     	createMatch.style.display="block";
     }
 </script>
-    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
-  </body>
+	<script
+		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
+		integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
+		integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
+		crossorigin="anonymous"></script>
+	<script src="dashboard.js"></script>
+</body>
 </html>

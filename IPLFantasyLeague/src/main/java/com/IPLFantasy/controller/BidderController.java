@@ -12,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
+import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.TeamDetails;
@@ -58,8 +62,8 @@ public class BidderController {
 
 	@PostMapping("/login")
 	public ModelAndView loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
-		service.loginBidder(login);
-
+		
+		
 		return new ModelAndView("redirect:dashboard", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
 
 	}
@@ -70,8 +74,9 @@ public class BidderController {
 		model.addAttribute("bidderlist", listBidders);
 		List<ScheduleDTO> scheduled = service.getScheduled();
 		
+		List<Match> matchsDetails = service.getMatchsDetails();
+		List<BidDTO> bid = service.getBid();
 		
-		System.out.println(scheduled);
 		model.addAttribute("matchlist", scheduled);
 		List<String> playerlist=new ArrayList<>();
 		List<String> teamlist=new ArrayList<>();
@@ -81,7 +86,7 @@ public class BidderController {
 			 String team_players = x.getTeamdetails().getTeam_players();
 			 String team_name = x.getTeamdetails().getTeam_name();
 			String team_name2 = x.getTeamdetails2().getTeam_name();
-			 System.out.println(team_name);
+			
 			 StringTokenizer stringTokenizer= new StringTokenizer(team_players, ",");
 			 
 			 while(stringTokenizer.hasMoreTokens()) {
@@ -97,6 +102,8 @@ public class BidderController {
 		}
 		model.addAttribute("plyrlist",playerlist);
 		model.addAttribute("teamlist",teamlist);
+		model.addAttribute("mtchdtls",matchsDetails);
+		model.addAttribute("bid",bid);
 		return "bidderpage";
 	}
 
@@ -113,9 +120,9 @@ public class BidderController {
 	}
 
 	@PostMapping("/bid")
-	public ResponseEntity<String> userBid(BidDTO biddto) {
+	public ResponseEntity<String> userBid(Bid bid) {
 		
-		service.userBid(biddto);
+		service.userBid(bid);
 		return new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
 	}
 
@@ -124,10 +131,10 @@ public class BidderController {
 		return new ResponseEntity<>(service.getMatchsDetails(), HttpStatus.OK);
 	}
 
-	@DeleteMapping("/cancle_bid/{b_id}")
+	@GetMapping("/cancel_bid/{b_id}")
 	public ResponseEntity<String> cancelBid(@PathVariable Integer b_id) {
 		service.cancelBid(b_id);
-		return new ResponseEntity<String>("Bid Canceld!!", HttpStatus.OK);
+		return new ResponseEntity<String>("Bid Cancelled!!", HttpStatus.OK);
 	}
 
 	@GetMapping("/view_leader_board_team")

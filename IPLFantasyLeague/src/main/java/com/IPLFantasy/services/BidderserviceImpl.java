@@ -18,6 +18,7 @@ import com.IPLFantasy.dao.MatchDao;
 import com.IPLFantasy.dao.MatchScheduleDao;
 import com.IPLFantasy.dao.TeamPointsDao;
 import com.IPLFantasy.entities.Admin;
+import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
 import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
@@ -43,7 +44,7 @@ public class BidderserviceImpl implements BidderService {
 	private MatchDao matchDao;
 	@Autowired
 	private TeamPointsDao teaPointsDao;
-	
+
 	@Autowired
 	private LeaderboardDao lDao;
 
@@ -53,8 +54,6 @@ public class BidderserviceImpl implements BidderService {
 		return dao.save(bidder);
 	}
 
-	
-
 	@Override
 	public List<ScheduleDTO> getScheduled() {
 		// TODO Auto-generated method stub
@@ -62,9 +61,9 @@ public class BidderserviceImpl implements BidderService {
 	}
 
 	@Override
-	public void userBid(BidDTO biddto) {
+	public void userBid(Bid bid) {
 		// TODO Auto-generated method stub
-		bidDao.save(BidUtils.convertToBidEntity(biddto));
+		bidDao.save(bid);
 	}
 
 	@Override
@@ -76,7 +75,7 @@ public class BidderserviceImpl implements BidderService {
 	@Override
 	public void cancelBid(Integer b_id) {
 		// TODO Auto-generated method stub
-
+		bidDao.deleteById(b_id);
 	}
 
 	@Override
@@ -94,25 +93,30 @@ public class BidderserviceImpl implements BidderService {
 
 	@Override
 	public List<Bidder> getBidders() {
-		
+
 		return dao.findAll();
 	}
 
 	@Override
 	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
-		
+
 		Bidder bident = dao.findByUserName(login.getUserName());
-		if(bident==null) {
+		if (bident == null) {
 			throw new UsernameNotFoundException("username not found");
-		}
-		else{			
-			if(!passencoder.matches(login.getPassword(), bident.getPassword())){
+		} else {
+			if (!passencoder.matches(login.getPassword(), bident.getPassword())) {
 				throw new IncorrectPasswordException("incorrrect password");
 			}
-		return null;
+			return null;
+		}
+
 	}
-	
+
+	@Override
+	public List<BidDTO> getBid() {
+		// TODO Auto-generated method stub
+		return BidUtils.convertToBidEntitylist(bidDao.findAll());
 	}
 
 }

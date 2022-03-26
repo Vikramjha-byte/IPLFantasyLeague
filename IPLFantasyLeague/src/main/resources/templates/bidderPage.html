@@ -29,6 +29,9 @@
 			<div class="nav-item text-nowrap">
 				<a class="nav-link px-3" href="#">Sign out</a>
 			</div>
+			<div class="nav-item text-nowrap">
+				<a class="nav-link px-3"  th:text="${username}"> </a>
+			</div>
 		</div>
 	</header>
 
@@ -65,15 +68,13 @@
 			</nav>
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " id="main">
-				<div
-					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-					<h1 class="h2">Welcome to your DashBoard</h1>
-					<div class="btn-toolbar mb-2 mb-md-0"></div>
-				</div>
-
-				<!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
-
-				<h2>Bidder List</h2>
+					<div style="justify-content: center !important; color: #6791ff;"
+			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
+			<div class="btn-toolbar mb-2 mb-md-0"></div>
+		</div>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Bidder Details-----------------------------</h6>
+		
 				<div class="table-responsive">
 					<table class="table table-striped table-sm">
 						<thead>
@@ -101,12 +102,13 @@
 	</div>
 	<section id="match_schedule" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Match Schedules</h2>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Scheduled Matches-----------------------------</h6>
+		
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
@@ -138,12 +140,13 @@
 	</section>
 	<section id="prediction" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Create a bid</h2>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Create Bid-----------------------------</h6>
+		
 
 		<div class="container">
 			<div class="row mt-5">
@@ -166,7 +169,7 @@
 							<label for="exampleInputEmail1" class="form-label"
 								style="color: black;">which player will score maximum? :</label>
 							<select
-								name="user_opinion1" class="form-control"
+								name="user_opinion2" class="form-control"
 								id="exampleInputEmail1" aria-describedby="emailHelp" required>
 							
 							<option></option>
@@ -180,7 +183,7 @@
 						<div class="mb-3">
 							<label for="exampleInputEmail1" class="form-label"
 								style="color: black;">Match Id :</label> <select
-								name="user_opinion1" class="form-control"
+								name="match_id" class="form-control"
 								id="exampleInputEmail1" aria-describedby="emailHelp" required>
 							
 							<option></option>
@@ -205,12 +208,13 @@
 	</section>
 	<section id="matchDetails" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Match Details</h2>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Match Details-----------------------------</h6>
+		
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
@@ -219,21 +223,25 @@
 						<th scope="col">#</th>
 						<th scope="col">Team 1</th>
 						<th scope="col">Team 2</th>
-						<th scope="col">Start Time</th>
-						<th scope="col">End Time</th>
-						<th scope="col">Result</th>
 						<th scope="col">Match Date</th>
+						<th scope="col">Match Time</th>
+						<th scope="col">Match stadium</th>
+						<th scope="col">Match Winner</th>
+						<th scope="col">Match status</th>
+						<th scope="col">Match delay</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="mtchlist: ${matchlist}">
+					<tr th:each="mtchlist: ${mtchdtls}">
 						<td th:text="${mtchlist.match_id}">#</td>
 						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
 						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
-						<td th:text="${mtchlist.start_time}">#</td>
-						<td th:text="${mtchlist.end_time}">#</td>
-						<td th:text="${mtchlist.result}">#</td>
-						<td th:text="${mtchlist.Match_date}">#</td>
+						<td th:text="${mtchlist.match_date}">#</td>
+						<td th:text="${mtchlist.match_time}">#</td>
+						<td th:text="${mtchlist.match_stadium}">#</td>
+						<td th:text="${mtchlist.winner}">#</td>
+						<td th:text="${mtchlist.status}">#</td>
+						<td th:text="${mtchlist.delay}">#</td>
 					</tr>
 				</tbody>
 			</table>
@@ -242,35 +250,31 @@
 	</section>
 	<section id="cancelBid" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Cancel Bid</h2>
+		<h6 style="color: red; font-weight: bolder; text-align: center;">-------------------------Cancel Bid-----------------------------</h6>
+		
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Team 1</th>
-						<th scope="col">Team 2</th>
-						<th scope="col">Start Time</th>
-						<th scope="col">End Time</th>
-						<th scope="col">Result</th>
-						<th scope="col">Match Date</th>
+						<th scope="col">Winner opinion</th>
+						<th scope="col">Maximum Score opinion</th>
+						<th scope="col">Match Id</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="mtchlist: ${matchlist}">
+					<tr th:each="mtchlist: ${bid}">
+						<td th:text="${mtchlist.user_id}">#</td>
+						<td th:text="${mtchlist.user_opinion1}">#</td>
+						<td th:text="${mtchlist.user_opinion2}">#</td>
 						<td th:text="${mtchlist.match_id}">#</td>
-						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
-						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
-						<td th:text="${mtchlist.start_time}">#</td>
-						<td th:text="${mtchlist.end_time}">#</td>
-						<td th:text="${mtchlist.result}">#</td>
-						<td th:text="${mtchlist.Match_date}">#</td>
+						<td><a th:href="|@{cancel_bid/{b_id}(b_id=${mtchlist.user_id})}|">Cancel bid</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -279,78 +283,29 @@
 	</section>
 	<section id="teamLeaderboard" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Team Leaderboard</h2>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------LeaderBoard-----------------------------</h6>
+		
 
-		<div class="table-responsive ">
-			<table class="table table-striped table-sm">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Team 1</th>
-						<th scope="col">Team 2</th>
-						<th scope="col">Start Time</th>
-						<th scope="col">End Time</th>
-						<th scope="col">Result</th>
-						<th scope="col">Match Date</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="mtchlist: ${matchlist}">
-						<td th:text="${mtchlist.match_id}">#</td>
-						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
-						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
-						<td th:text="${mtchlist.start_time}">#</td>
-						<td th:text="${mtchlist.end_time}">#</td>
-						<td th:text="${mtchlist.result}">#</td>
-						<td th:text="${mtchlist.Match_date}">#</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		
 
 	</section>
 
 	<section id="predictorStandings" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-		<div
+			<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2">Welcome to your DashBoard</h1>
+			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h2>Predictor Standing</h2>
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------BidderBoard-----------------------------</h6>
+		
 
-		<div class="table-responsive ">
-			<table class="table table-striped table-sm">
-				<thead>
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Team 1</th>
-						<th scope="col">Team 2</th>
-						<th scope="col">Start Time</th>
-						<th scope="col">End Time</th>
-						<th scope="col">Result</th>
-						<th scope="col">Match Date</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="mtchlist: ${matchlist}">
-						<td th:text="${mtchlist.match_id}">#</td>
-						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
-						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
-						<td th:text="${mtchlist.start_time}">#</td>
-						<td th:text="${mtchlist.end_time}">#</td>
-						<td th:text="${mtchlist.result}">#</td>
-						<td th:text="${mtchlist.Match_date}">#</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-
+		
 	</section>
 
 	<script type="text/javascript">
