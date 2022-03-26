@@ -43,7 +43,7 @@ public class Homecontroller {
 	}
 	@GetMapping("/guest")
 	public String getGuestPage() {
-		return "guest";
+		return "redirect:home";
 		
 	}
 }

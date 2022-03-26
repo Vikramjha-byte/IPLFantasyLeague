@@ -28,10 +28,10 @@ public class Match {
 	@JoinColumn(name = "team_two")
 	private TeamDetails teamdetails2;
 
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date match_date;
-
-	private Time match_time;
+   
+	private String match_time;
 	@Column(length = 150)
 	private String match_stadium;
 	private String winner;
@@ -70,11 +70,11 @@ public class Match {
 		this.match_date = match_date;
 	}
 
-	public Time getMatch_time() {
+	public String getMatch_time() {
 		return match_time;
 	}
 
-	public void setMatch_time(Time match_time) {
+	public void setMatch_time(String match_time) {
 		this.match_time = match_time;
 	}
 

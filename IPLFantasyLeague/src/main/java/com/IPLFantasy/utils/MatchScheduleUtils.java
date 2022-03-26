@@ -13,8 +13,10 @@ public class MatchScheduleUtils {
 	public static List<ScheduleDTO> convertToMatchScheduleDtoList(List<MatchSchedule> list){
 		List<ScheduleDTO> dtolist = new ArrayList<ScheduleDTO>();
 		for(MatchSchedule matchentity:list) {
+			
 			dtolist.add(convertToMatchScheduleDto(matchentity));
 		}
+		
 		return dtolist;
 	}
 	public static ScheduleDTO convertToMatchScheduleDto(MatchSchedule matchentity) {

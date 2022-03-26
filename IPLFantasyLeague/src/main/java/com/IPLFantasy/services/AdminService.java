@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.IPLFantasy.entities.Admin;
 import com.IPLFantasy.entities.Bid;
+import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.MatchSchedule;
 
 import com.IPLFantasy.entities.TeamDetails;
@@ -36,5 +37,9 @@ public interface AdminService {
 	public Admin registerBidder(Admin admin);
 
 	public List<TeamDetails> getTeams();
+
+	public List<MatchSchedule> getMatchSchedule();
+
+	public void createMatches(Match match);
 
 }

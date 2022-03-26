@@ -49,6 +49,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#createMatch" onclick="return createMatch();">
+              Create Matches
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#smatch" onclick="return smatch();">
               Schedule Matches
             </a>
@@ -66,11 +71,17 @@
         </ul>
 
         <ul class="nav flex-column mb-2">
+         <li class="nav-item">
+            <a class="nav-link" href="#cnclmtch" onclick="return cnclmtch();">
+              Cancel Match
+            </a>
+          </li>
           <li class="nav-item">
             <a class="nav-link" href="#ares" onclick="return ares();">
               Add Result
             </a>
           </li>
+          
           <li class="nav-item">
             <a class="nav-link" href="#lstbid" onclick="return lstbid();">
               List Biddings
@@ -152,6 +163,7 @@
 							style="color: black;">Team Players :</label> <input type="text"
 							name="team_players" class="form-control" id="exampleInputTP" required="required">
 					</div>
+					
 					<div class="mb-3">
 						<label for="exampleInputcaptain" class="form-label"
 							style="color: black;">Captain :</label> <input type="text"
@@ -159,7 +171,7 @@
 					</div>
 					<div class="mb-3 form-check">
 						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="black">Check
+						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
 							me out</label>
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -170,7 +182,100 @@
  
  
 </section>
-<section id="smatch" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<section id="createMatch" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Welcome to Admin DashBoard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          
+        </div>
+      </div>
+ <h2>Create New Match</h2>
+ <div class="container">
+		<div class="row mt-5">
+			<div class="col-md-6 offset-md-3">
+				<form th:action="@{/admin/createMatch} " method="post"
+					>
+					
+					<div class="mb-3">
+						<label for="exampleInputTO" class="form-label"
+							style="color: black;">Team 1 :</label> <select 
+							name="teamdetails" class="form-control" id="exampleInputTO"
+							aria-describedby="emailHelp" required>
+							<option></option>
+							<option th:each="team:${teamlist}"
+							th:value="${team.match_id}"
+							th:text="${team.team_name}">
+							</option>
+							
+							</select>
+
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputT1" class="form-label"
+							style="color: black;">Team 2 :</label> <select 
+							name="teamdetails2" class="form-control" id="exampleInputTO"
+							aria-describedby="emailHelp" required>
+							<option></option>
+							<option th:each="team:${teamlist}"
+							th:value="${team.match_id}"
+							th:text="${team.team_name}">
+							</option>
+							
+							</select></div>
+					<div class="mb-3">
+						<label for="exampleInputMD" class="form-label"
+							style="color: black;">Match Date :</label> <input type="Date"
+							name="match_date" class="form-control" id="exampleInputMD" required="required">
+					</div>
+					
+					<div class="mb-3">
+						<label for="exampleInputMT" class="form-label"
+							style="color: black;">Match Time :</label> <input type="time"
+							name=match_time class="form-control" id="exampleInputMT" required="required">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputMS" class="form-label"
+							style="color: black;">Match Stadium :</label> <input type="text"
+							name=match_stadium class="form-control" id="exampleInputMS" required="required">
+					</div>
+						<div class="mb-3">
+						<label for="exampleInputMw" class="form-label"
+							style="color: black;">Match Winner :</label> <input type="text"
+							name=winner class="form-control" id="exampleInputMW" required="required">
+					</div>
+						<div class="mb-3">
+						<label for="exampleInputMs" class="form-label"
+							style="color: black;">Match Status :</label> <select
+							name=status class="form-control" id="exampleInputMs" required="required">
+					<option value="Not yet started" title="Not yet started">Not yet started</option>
+					<option value="Toss" title="Toss">Toss</option>
+					<option value="Innings break" title="Innings break">Innings break</option>
+					<option value="finished" title="finished">finished</option>
+					<option value="Rain" title="Rain">Rain</option>
+					</select>
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputDelay" class="form-label"
+							style="color: black;">Delay :</label> <select
+							name=delay class="form-control" id="exampleInputDelay" required="required">
+					<option value="True" title="True">True</option>
+					<option value="False" title="False">False</option>
+					</select>
+					</div>
+					
+					<div class="mb-3 form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
+						<label class="form-check-label" for="exampleCheck1" style="color:black">I agree to create new match</label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+ 
+ 
+</section>
+<section id="smatch" style="display: none;" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Welcome to Admin DashBoard</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
@@ -236,7 +341,7 @@
 						</div>
 					<div class="mb-3 form-check">
 						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="black">Check
+						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
 							me out</label>
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -255,7 +360,81 @@
       </div>
  <h2>Reschedule Match</h2>
  
- 
+  <div class="container">
+		<div class="row mt-5">
+			<div class="col-md-6 offset-md-3">
+				<form th:action="@{/admin/match-schedule} " method="post" th.object="${matchData}"
+					>
+					<div class="mb-3">
+						<label for="exampleInputTo" class="form-label"
+							style="color: black;">Match ID :</label> <select
+							name="match_id"  class="form-control" id="exampleInputTo" required="required">
+							<option></option>
+							<option th:each="match:${mtchschdl}"
+							th:text="${match.match_id}">
+							</option>
+							</select>
+					</div>
+					
+					<div class="mb-3">
+						<label for="exampleInputTo" class="form-label"
+							style="color: black;">Team 1 :</label> <select
+							name="teamdetails"  class="form-control" id="exampleInputTo" required="required">
+							<option></option>
+							<option th:each="team:${teamlist}"
+							th:value="${team.match_id}"
+							th:text="${team.team_name}">
+							</option>
+							</select>
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputTt" class="form-label"
+							style="color: black;">Team 2 :</label> <select
+							name="teamdetails2" class="form-control" id="exampleInputTt" required="required">
+					<option></option>
+							<option th:each="team:${teamlist}"
+							th:value="${team.match_id}"
+							th:text="${team.team_name}">
+							</option>
+					</select>
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputst" class="form-label"
+							style="color: black;">Start Time :</label> <input type="time"
+							name="start_time" class="form-control" id="exampleInputst" required="required">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputet" class="form-label"
+							style="color: black;">End Time :</label> <input type="time"
+							name="end_time" class="form-control" id="exampleInputet" required="required">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputResult" class="form-label"
+							style="color: black;">Result :</label> <select 
+							name="result" class="form-control" id="exampleInputResult" required="required">
+							<option>Pending</option>
+							<option>Team 1 Won</option>
+							<option>Team 2 Won</option>
+							<option>Cancelled</option>
+							<option>Rescheduled</option>
+							</select>
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputdate" class="form-label"
+							style="color: black;">Match Date :</label> <input type="date"
+								name="match_date" class="form-control" id="exampleInputdate"
+								required="required">
+						</div>
+					<div class="mb-3 form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
+						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
+							me out</label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
  
 </section>
 <section id="uteams" style="display: none" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
@@ -266,7 +445,89 @@
         </div>
       </div>
  <h2>Update Team</h2>
+  <div class="container">
+		<div class="row mt-5">
+			<div class="col-md-6 offset-md-3">
+				<form th:action="@{/admin/update-team} " method="post"
+					>
+					<div class="mb-3">
+						<label for="exampleInputTo" class="form-label"
+							style="color: black;">Team ID :</label> <select
+							name="match_id"  class="form-control" id="exampleInputTo" required="required">
+							<option></option>
+							<option th:each="team:${teamlist}"
+							th:text="${team.match_id}">
+							</option>
+							</select>
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputEmail1" class="form-label"
+							style="color: black;">TeamName :</label> <input type="text"
+							name="team_name" class="form-control" id="exampleInputEmail1"
+							aria-describedby="emailHelp" required>
+
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputHG" class="form-label"
+							style="color: black;">Home Ground :</label> <input type="text"
+							name="home_ground" class="form-control" id="exampleInputHG" required="required">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputTP" class="form-label"
+							style="color: black;">Team Players :</label> <input type="text"
+							name="team_players" class="form-control" id="exampleInputTP" required="required">
+					</div>
+					<div class="mb-3">
+						<label for="exampleInputcaptain" class="form-label"
+							style="color: black;">Captain :</label> <input type="text"
+							name="captain" class="form-control" id="exampleInputTP" required="required">
+					</div>
+					<div class="mb-3 form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
+						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
+							me out</label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
  
+ 
+</section>
+<section id="cnclmtch" style="display: none;" class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Welcome to Admin DashBoard</h1>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          
+        </div>
+      </div>
+ <h2>Cancel Match</h2>
+  <div class="container">
+		<div class="row mt-5">
+			<div class="col-md-6 offset-md-3">
+				<form th:action="@{/admin/update-match} " method="post"
+					>
+					<div class="mb-3">
+						<label for="exampleInputTo" class="form-label"
+							style="color: black;">Team ID :</label> <select
+							name="match_id"  class="form-control" id="exampleInputTo" required="required">
+							<option></option>
+							<option th:each="match:${mtchschdl}"
+							th:text="${match.match_id}">
+							</option>
+							</select>
+					</div>
+					
+					<div class="mb-3 form-check">
+						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
+						<label class="form-check-label" for="exampleCheck1" style="color:black">After checking this, you are agree to cancel this match</label>
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
  
  
 </section>
@@ -331,6 +592,10 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function teams () {
     	var x = document.getElementById("main");
@@ -349,6 +614,10 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function smatch () {
     	var x = document.getElementById("main");
@@ -367,6 +636,10 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function rmatch () {
     	var x = document.getElementById("main");
@@ -385,6 +658,10 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function uteams () {
     	var x = document.getElementById("main");
@@ -403,6 +680,10 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function ares () {
     	var x = document.getElementById("main");
@@ -417,10 +698,14 @@
     	rm.style.display="none";
     	var ut= document.getElementById("uteams");
     	ut.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
     	var ares = document.getElementById("ares");
     	ares.style.display="block";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
     }
     function lstbid () {
     	var x = document.getElementById("main");
@@ -439,12 +724,58 @@
     	ares.style.display="none";
     	var lstbid = document.getElementById("lstbid");
     	lstbid.style.display="block";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
+    }
+    function cnclmtch () {
+    	var x = document.getElementById("main");
+    	x.style.display="none";
+    	var t = document.getElementById("teams");
+    	t.style.display="none";
+    	var y = document.getElementById("tournament");
+    	y.style.display="none";
+    	var sm = document.getElementById("smatch");
+    	sm.style.display="none";
+    	var rm= document.getElementById("rmatch");
+    	rm.style.display="none";
+    	var ut= document.getElementById("uteams");
+    	ut.style.display="none";
+    	var ares = document.getElementById("ares");
+    	ares.style.display="none";
+    	var lstbid = document.getElementById("lstbid");
+    	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="block";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="none";
+    }
+    function createMatch () {
+    	var x = document.getElementById("main");
+    	x.style.display="none";
+    	var t = document.getElementById("teams");
+    	t.style.display="none";
+    	var y = document.getElementById("tournament");
+    	y.style.display="none";
+    	var sm = document.getElementById("smatch");
+    	sm.style.display="none";
+    	var rm= document.getElementById("rmatch");
+    	rm.style.display="none";
+    	var ut= document.getElementById("uteams");
+    	ut.style.display="none";
+    	var ares = document.getElementById("ares");
+    	ares.style.display="none";
+    	var lstbid = document.getElementById("lstbid");
+    	lstbid.style.display="none";
+    	var cnclmtch = document.getElementById("cnclmtch");
+    	cnclmtch.style.display="none";
+    	var createMatch = document.getElementById("createMatch");
+    	createMatch.style.display="block";
     }
 </script>
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
       <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
   </body>
-</html>
-</body>
 </html>

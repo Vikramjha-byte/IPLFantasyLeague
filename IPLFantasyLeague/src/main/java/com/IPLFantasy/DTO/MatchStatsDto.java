@@ -16,7 +16,7 @@ public class MatchStatsDto {
 
 	private Date match_date;
 
-	private Time match_time;
+	private String match_time;
 	
 	public Integer getMatch_id() {
 		return match_id;
@@ -42,11 +42,11 @@ public class MatchStatsDto {
 	public void setMatch_date(Date match_date) {
 		this.match_date = match_date;
 	}
-	public Time getMatch_time() {
+	public String getMatch_time() {
 		return match_time;
 	}
-	public void setMatch_time(Time match_time) {
-		this.match_time = match_time;
+	public void setMatch_time(String string) {
+		this.match_time = string;
 	}
 	public String getMatch_stadium() {
 		return match_stadium;

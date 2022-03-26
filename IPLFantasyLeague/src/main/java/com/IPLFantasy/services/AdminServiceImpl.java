@@ -9,12 +9,14 @@ import org.springframework.stereotype.Service;
 
 import com.IPLFantasy.dao.AdminDao;
 import com.IPLFantasy.dao.BidDao;
+import com.IPLFantasy.dao.MatchDao;
 import com.IPLFantasy.dao.MatchScheduleDao;
 import com.IPLFantasy.dao.TeamDao;
 import com.IPLFantasy.dao.TeamPointsDao;
 import com.IPLFantasy.dao.TournamentDao;
 import com.IPLFantasy.entities.Admin;
 import com.IPLFantasy.entities.Bid;
+import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.MatchSchedule;
 import com.IPLFantasy.entities.TeamDetails;
 import com.IPLFantasy.entities.TeamPoints;
@@ -36,6 +38,9 @@ public class AdminServiceImpl implements AdminService {
 	private AdminDao adminDao;
 	
 	@Autowired
+	private MatchDao matchDao;
+	
+	@Autowired
 	private MatchScheduleDao scheduleDAO;
 	
 	@Autowired
@@ -52,6 +57,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void createTeams(TeamDetails team) {
 		teamDao.save(team);
+	}
+	@Override
+	public void createMatches(Match match) {
+		// TODO Auto-generated method stub
+		matchDao.save(match);
 	}
 
 	@Override
@@ -128,4 +138,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return teamDao.findAll();
 	}
+
+	@Override
+	public List<MatchSchedule> getMatchSchedule() {
+		// TODO Auto-generated method stub
+		return (List<MatchSchedule>)scheduleDAO.findAll();
+	}
+
+	
 }

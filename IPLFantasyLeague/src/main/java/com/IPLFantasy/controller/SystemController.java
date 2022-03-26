@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.IPLFantasy.DTO.MatchStatsDto;
 import com.IPLFantasy.services.SystemService;
@@ -19,7 +20,8 @@ public class SystemController {
 	private SystemService service;
 	
 	@GetMapping("/home")
-	public ResponseEntity<List<MatchStatsDto>> getMatchStats(){
-		return new ResponseEntity<>(service.getTeamStats(),HttpStatus.OK);
+	public ModelAndView getMatchStats(){
+		ResponseEntity<List<MatchStatsDto>> responseEntity = new ResponseEntity<>(service.getTeamStats(),HttpStatus.OK);
+		return new ModelAndView("home","entity",responseEntity);
 	}	
 }

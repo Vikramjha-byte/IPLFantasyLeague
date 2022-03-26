@@ -1,7 +1,10 @@
 package com.IPLFantasy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -27,6 +30,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
 import com.IPLFantasy.entities.Bidder;
+import com.IPLFantasy.entities.Match;
+import com.IPLFantasy.entities.TeamDetails;
 import com.IPLFantasy.exceptions.IncorrectPasswordException;
 import com.IPLFantasy.exceptions.LoginException;
 import com.IPLFantasy.exceptions.RegistrationException;
@@ -63,6 +68,35 @@ public class BidderController {
 		System.out.println(model.getAttribute("msg"));
 		List<Bidder> listBidders = service.getBidders();
 		model.addAttribute("bidderlist", listBidders);
+		List<ScheduleDTO> scheduled = service.getScheduled();
+		
+		
+		System.out.println(scheduled);
+		model.addAttribute("matchlist", scheduled);
+		List<String> playerlist=new ArrayList<>();
+		List<String> teamlist=new ArrayList<>();
+		
+		
+		for(ScheduleDTO x:scheduled) {
+			 String team_players = x.getTeamdetails().getTeam_players();
+			 String team_name = x.getTeamdetails().getTeam_name();
+			String team_name2 = x.getTeamdetails2().getTeam_name();
+			 System.out.println(team_name);
+			 StringTokenizer stringTokenizer= new StringTokenizer(team_players, ",");
+			 
+			 while(stringTokenizer.hasMoreTokens()) {
+				 playerlist.add(stringTokenizer.nextToken());
+			 }
+			 if(!teamlist.contains(team_name)) {
+			 teamlist.add(team_name);
+			 }
+			 if(!teamlist.contains(team_name2)) {
+			 teamlist.add(team_name2);
+			 }
+			 
+		}
+		model.addAttribute("plyrlist",playerlist);
+		model.addAttribute("teamlist",teamlist);
 		return "bidderpage";
 	}
 
@@ -79,7 +113,8 @@ public class BidderController {
 	}
 
 	@PostMapping("/bid")
-	public ResponseEntity<String> userBid(@RequestBody BidDTO biddto) {
+	public ResponseEntity<String> userBid(BidDTO biddto) {
+		
 		service.userBid(biddto);
 		return new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
 	}

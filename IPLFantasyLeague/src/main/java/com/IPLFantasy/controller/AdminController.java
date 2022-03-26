@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.IPLFantasy.entities.Admin;
 import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
+import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.MatchSchedule;
 
 import com.IPLFantasy.entities.TeamDetails;
@@ -60,6 +61,10 @@ public class AdminController {
 		model.addAttribute("adminlist",admins);
 		List<TeamDetails> teams = adminService.getTeams();
 		model.addAttribute("teamlist",teams);
+		List<Bid> biddings = adminService.getBiddings();
+		model.addAttribute("lstbid",biddings);
+		List<MatchSchedule> matchSchedule = adminService.getMatchSchedule();
+		model.addAttribute("mtchschdl",matchSchedule);
 		return "adminpage";
 	}
 	@GetMapping("/details")
@@ -79,6 +84,14 @@ public class AdminController {
 	public String createTeams( TeamDetails team) {
 		adminService.createTeams(team);
 	ResponseEntity<String> entity= new 	ResponseEntity<String>("Team Created Successfully!!!", HttpStatus.OK);
+		
+	return "redirect:dashboard#teams";
+	}
+	
+	@PostMapping("/createMatch")
+	public String createMatches( Match match) {
+		adminService.createMatches(match);
+	ResponseEntity<String> entity= new 	ResponseEntity<String>("Match Created Successfully!!!", HttpStatus.OK);
 		
 	return "redirect:dashboard#teams";
 	}
@@ -104,8 +117,8 @@ public class AdminController {
 		return new ResponseEntity<String>("Team updated Successfully!!!", HttpStatus.OK);
 	}
 
-	@DeleteMapping("/update-match/{match_id}")
-	public ResponseEntity<String> CancelMatch(@PathVariable Integer match_id) {
+	@PostMapping("/update-match/{match_id}")
+	public ResponseEntity<String> CancelMatch(@RequestParam("match_id") Integer match_id) {
 		adminService.cancelMatch(match_id);
 		return new ResponseEntity<>("Match canceled!!!", HttpStatus.OK);
 	}
@@ -115,10 +128,11 @@ public class AdminController {
 		adminService.matchResult(points);
 		return new ResponseEntity<String>("Result Added Successfully!!!", HttpStatus.OK);
 	}
-	@GetMapping("/dashboard#lstbid")
+	@GetMapping("/getBids")
 	public String getBiddings(Model model){
 		List<Bid> biddings = adminService.getBiddings();
+		System.out.println(biddings);
 		model.addAttribute("lstbid",biddings);
-		return "dashboard#lstbid";
+		return "redirect:dashboard";
 	}
 }
