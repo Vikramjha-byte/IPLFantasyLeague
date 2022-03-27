@@ -96,12 +96,12 @@ public class BidderController {
 		}
 		model.addAttribute("user", bidder);
 		System.out.println(model.getAttribute("msg"));
-		List<Bidder> listBidders = service.getBidders();
+		Bidder listBidders = service.getBidderbyuserId(bidder.getBidderId());
 		model.addAttribute("bidderlist", listBidders);
 		List<ScheduleDTO> scheduled = service.getScheduled();
 
 		List<Match> matchsDetails = service.getMatchsDetails();
-		List<BidDTO> bid = service.getBid();
+		List<BidDTO> bid = service.getBidbyuserId(bidder.getBidderId());
 
 		model.addAttribute("matchlist", scheduled);
 		List<String> playerlist = new ArrayList<>();
@@ -145,10 +145,19 @@ public class BidderController {
 	}
 
 	@PostMapping("/bid")
-	public ResponseEntity<String> userBid(Bid bid) {
-
-		service.userBid(bid);
-		return new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
+	public ResponseEntity<String> userBid(Bid bid,HttpSession httpSession) {
+		int matchid= bid.getMatch_id();
+	    Match matchsDetails = service.getMatchsDetailsbymatchid(matchid);
+		ResponseEntity<String> responseEntity;
+		if(matchsDetails.getStatus().equals("Not yet started")) {
+			
+			service.userBid(bid);
+			responseEntity = new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
+		}else {
+			responseEntity = new ResponseEntity<>("Time UP!!", HttpStatus.BAD_REQUEST);
+		}
+		
+		return responseEntity;
 	}
 
 	@GetMapping("/match_details")

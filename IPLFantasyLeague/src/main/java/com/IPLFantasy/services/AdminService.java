@@ -42,4 +42,6 @@ public interface AdminService {
 
 	public void createMatches(Match match);
 
+	public Admin getAdmindetailsbyid(int admin_id);
+
 }

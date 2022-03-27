@@ -20,6 +20,7 @@ public class Bid {
 	@Column(length = 100)
 	private String user_opinion2;
 	private Integer match_id;
+	private Integer bidby;
 	public Integer getUser_id() {
 		return user_id;
 	}
@@ -43,6 +44,12 @@ public class Bid {
 	}
 	public void setMatch_id(Integer match_id) {
 		this.match_id = match_id;
+	}
+	public Integer getBidby() {
+		return bidby;
+	}
+	public void setBidby(Integer bidby) {
+		this.bidby = bidby;
 	}
 	
 }

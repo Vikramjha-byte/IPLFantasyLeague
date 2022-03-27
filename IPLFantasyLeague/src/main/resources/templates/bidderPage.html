@@ -30,9 +30,9 @@
 		<div class="navbar-nav">
 			<div class="nav-item text-nowrap">
 				<a class="nav-link px-3" href="/bidder/logout">Sign out</a>
-				
+
 			</div>
-		
+
 		</div>
 	</header>
 
@@ -44,7 +44,7 @@
 					<ul class="nav flex-column">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href=""> <span data-feather="home"></span>
-							Hello, <span th:text="${user.userName}"></span>
+								Hello, <span th:text="${user.userName}"></span>
 						</a></li>
 						<li class="nav-item"><a class="nav-link"
 							href="#match_schedule" onclick="return mtchchdl();"> Match
@@ -69,13 +69,14 @@
 			</nav>
 
 			<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " id="main">
-					<div style="justify-content: center !important; color: #6791ff;"
-			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
-			<div class="btn-toolbar mb-2 mb-md-0"></div>
-		</div>
-		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Bidder Details-----------------------------</h6>
-		
+				<div style="justify-content: center !important; color: #6791ff;"
+					class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+					<h1 class="h2 text-center">Welcome to the DashBoard</h1>
+					<div class="btn-toolbar mb-2 mb-md-0"></div>
+				</div>
+				<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Bidder
+					Details-----------------------------</h6>
+
 				<div class="table-responsive">
 					<table class="table table-striped table-sm">
 						<thead>
@@ -88,12 +89,12 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="bidder: ${bidderlist}">
-								<td th:text="${bidder.bidderId}">#</td>
-								<td th:text="${bidder.name}">Name</td>
-								<td th:text="${bidder.userName}">UserName</td>
-								<td th:text="${bidder.email}">Email</td>
-								<td th:text="${bidder.phoneNo}">Phone No.</td>
+							<tr>
+								<td th:text="${user.bidderId}">#</td>
+								<td th:text="${user.name}">Name</td>
+								<td th:text="${user.userName}">UserName</td>
+								<td th:text="${user.email}">Email</td>
+								<td th:text="${user.phoneNo}">Phone No.</td>
 							</tr>
 						</tbody>
 					</table>
@@ -103,13 +104,14 @@
 	</div>
 	<section id="match_schedule" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Scheduled Matches-----------------------------</h6>
-		
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Scheduled
+			Matches-----------------------------</h6>
+
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
@@ -126,13 +128,17 @@
 				</thead>
 				<tbody>
 					<tr th:each="mtchlist: ${matchlist}">
-						<td th:text="${mtchlist.match_id}">#</td>
+						<td class="mid" th:text="${mtchlist.match_id}">#</td>
 						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
 						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
 						<td th:text="${mtchlist.start_time}">#</td>
 						<td th:text="${mtchlist.end_time}">#</td>
 						<td th:text="${mtchlist.result}">#</td>
 						<td th:text="${mtchlist.Match_date}">#</td>
+						<td><a
+							style="color: red; font-weight: bolder; text-decoration: none; text-align: center;"
+							th:href="|@{#prediction}|" onclick="bid();">Bid</a></td>
+
 					</tr>
 				</tbody>
 			</table>
@@ -141,13 +147,14 @@
 	</section>
 	<section id="prediction" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Create Bid-----------------------------</h6>
-		
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Create
+			Bid-----------------------------</h6>
+
 
 		<div class="container">
 			<div class="row mt-5">
@@ -155,51 +162,54 @@
 					<form th:action="@{/bidder/bid} " method="post">
 						<div class="mb-3">
 							<label for="exampleInputEmail1" class="form-label"
+								style="color: black;">Your Id :</label> <input type="text"
+								name="bidby" class="form-control" id="exampleInputEmail1"
+								aria-describedby="emailHelp" th:value="${user.bidderId}"
+								required>
+
+						</div>
+						<div class="mb-3">
+							<label for="user_opinion1" class="form-label"
 								style="color: black;">Who will Win? :</label> <select
-								name="user_opinion1" class="form-control"
-								id="exampleInputEmail1" aria-describedby="emailHelp" required>
-							
-							<option></option>
-							<option  th:each="teamlist: ${teamlist}"
-							th:value="${teamlist}"
-							th:text="${teamlist}"
-							>
+								name="user_opinion1" class="form-control" id="user_opinion1"
+								aria-describedby="emailHelp" required>
+
+								<option></option>
+								<option th:each="teamlist: ${teamlist}" th:value="${teamlist}"
+									th:text="${teamlist}">
 							</select>
 						</div>
+
 						<div class="mb-3">
-							<label for="exampleInputEmail1" class="form-label"
+							<label for="user_opinion2" class="form-label"
 								style="color: black;">which player will score maximum? :</label>
-							<select
-								name="user_opinion2" class="form-control"
-								id="exampleInputEmail1" aria-describedby="emailHelp" required>
-							
-							<option></option>
-							<option  th:each="plyrlist: ${plyrlist}"
-							th:value="${plyrlist}"
-							th:text="${plyrlist}"
-							>
+							<select name="user_opinion2" class="form-control"
+								id="user_opinion2" aria-describedby="emailHelp" required>
+
+								<option></option>
+								<option th:each="plyrlist: ${plyrlist}" th:value="${plyrlist}"
+									th:text="${plyrlist}">
 							</select>
 						</div>
-						
+
 						<div class="mb-3">
-							<label for="exampleInputEmail1" class="form-label"
-								style="color: black;">Match Id :</label> <select
-								name="match_id" class="form-control"
-								id="exampleInputEmail1" aria-describedby="emailHelp" required>
-							
-							<option></option>
-							<option  th:each="mtchlist: ${matchlist}"
-							th:value="${mtchlist.match_id}"
-							th:text="${mtchlist.match_id}"
-							>
+							<label for="match_id" class="form-label" style="color: black;">Match
+								Id :</label> <select name="match_id" class="form-control" id="match_id"
+								aria-describedby="emailHelp" required>
+
+								<option></option>
+								<option th:each="mtchlist: ${matchlist}"
+									th:value="${mtchlist.match_id}" th:text="${mtchlist.match_id}">
 							</select>
 						</div>
 						<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="exampleCheck1"required="required">
-						<label class="form-check-label" for="exampleCheck1" style="color:black">Check
-							me out</label>
-					</div>
-					<button type="submit" class="btn btn-primary btn-lg">BID NOW</button>
+							<input type="checkbox" class="form-check-input"
+								id="exampleCheck1" required="required"> <label
+								class="form-check-label" for="exampleCheck1"
+								style="color: black">Check me out</label>
+						</div>
+						<button type="submit" class="btn btn-primary btn-lg">BID
+							NOW</button>
 					</form>
 				</div>
 			</div>
@@ -209,13 +219,14 @@
 	</section>
 	<section id="matchDetails" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Match Details-----------------------------</h6>
-		
+		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------Match
+			Details-----------------------------</h6>
+
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
@@ -234,7 +245,7 @@
 				</thead>
 				<tbody>
 					<tr th:each="mtchlist: ${mtchdtls}">
-						<td th:text="${mtchlist.match_id}">#</td>
+						<td class="mid" th:text="${mtchlist.match_id}">#</td>
 						<td th:text="${mtchlist.teamdetails.team_name}">#</td>
 						<td th:text="${mtchlist.teamdetails2.team_name}">#</td>
 						<td th:text="${mtchlist.match_date}">#</td>
@@ -251,13 +262,14 @@
 	</section>
 	<section id="cancelBid" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
-		<h6 style="color: red; font-weight: bolder; text-align: center;">-------------------------Cancel Bid-----------------------------</h6>
-		
+		<h6 style="color: red; font-weight: bolder; text-align: center;">-------------------------Cancel
+			Bid-----------------------------</h6>
+
 
 		<div class="table-responsive ">
 			<table class="table table-striped table-sm">
@@ -275,7 +287,10 @@
 						<td th:text="${mtchlist.user_opinion1}">#</td>
 						<td th:text="${mtchlist.user_opinion2}">#</td>
 						<td th:text="${mtchlist.match_id}">#</td>
-						<td><a th:href="|@{cancel_bid/{b_id}(b_id=${mtchlist.user_id})}|">Cancel bid</a></td>
+						<td><a
+							style="color: red; font-weight: bolder; text-decoration: none; text-align: center;"
+							th:href="|@{cancel_bid/{b_id}(b_id=${mtchlist.user_id})}|">Cancel
+								bid</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -284,29 +299,29 @@
 	</section>
 	<section id="teamLeaderboard" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
 		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------LeaderBoard-----------------------------</h6>
-		
 
-		
+
+
 
 	</section>
 
 	<section id="predictorStandings" style="display: none;"
 		class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-			<div style="justify-content: center !important; color: #6791ff;"
+		<div style="justify-content: center !important; color: #6791ff;"
 			class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
 			<h1 class="h2 text-center">Welcome to the DashBoard</h1>
 			<div class="btn-toolbar mb-2 mb-md-0"></div>
 		</div>
 		<h6 style="color: green; font-weight: bolder; text-align: center;">-------------------------BidderBoard-----------------------------</h6>
-		
 
-		
+
+
 	</section>
 
 	<script type="text/javascript">
@@ -325,6 +340,24 @@ function mtchchdl (){
 	tl.style.display="none";
 	var ps = document.getElementById("predictorStandings");
 	ps.style.display="none";
+}
+function bid (){
+	
+	var x = document.getElementById("main");
+	x.style.display="none";
+	var t = document.getElementById("match_schedule");
+	t.style.display="none";
+	var p = document.getElementById("prediction");
+	p.style.display="block";
+	var md = document.getElementById("matchDetails");
+	md.style.display="none";
+	var cb = document.getElementById("cancelBid");
+	cb.style.display="none";
+	var tl = document.getElementById("teamLeaderboard");
+	tl.style.display="none";
+	var ps = document.getElementById("predictorStandings");
+	ps.style.display="none";
+	
 }
 function prediction (){
 	var x = document.getElementById("main");
@@ -409,6 +442,7 @@ function predictorStandings (){
  </script>
 
 	<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"

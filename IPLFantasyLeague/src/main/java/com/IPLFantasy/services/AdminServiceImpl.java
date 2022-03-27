@@ -145,5 +145,11 @@ public class AdminServiceImpl implements AdminService {
 		return (List<MatchSchedule>)scheduleDAO.findAll();
 	}
 
+	@Override
+	public Admin getAdmindetailsbyid(int admin_id) {
+		// TODO Auto-generated method stub
+		return adminDao.getById(admin_id);
+	}
+
 	
 }

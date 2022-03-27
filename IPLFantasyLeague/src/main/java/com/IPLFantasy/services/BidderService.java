@@ -11,6 +11,7 @@ import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.TeamPoints;
 import com.IPLFantasy.exceptions.IncorrectPasswordException;
+import com.IPLFantasy.exceptions.UserNameAlreadyExistException;
 import com.IPLFantasy.exceptions.UsernameNotFoundException;
 
 public interface BidderService {
@@ -38,5 +39,17 @@ public interface BidderService {
 
 
 	public List<BidDTO> getBid();
+
+
+
+	public Bidder getBidderbyuserId(int bidderId);
+
+
+
+	public List<BidDTO> getBidbyuserId(int bidderId);
+
+
+
+	public Match getMatchsDetailsbymatchid(int matchid);
 
 }

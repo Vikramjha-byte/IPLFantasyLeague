@@ -90,9 +90,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:each="admin: ${adminlist}">
-								<td th:text="${admin.admin_id}">#</td>
-								<td th:text="${admin.username}">UserName</td>
+							<tr>
+								<td th:text="${user.admin_id}">#</td>
+								<td th:text="${user.username}">UserName</td>
 							</tr>
 						</tbody>
 					</table>
@@ -619,6 +619,7 @@
 						<th scope="col">Winner opinion</th>
 						<th scope="col">Maximum Score opinion</th>
 						<th scope="col">Match Id</th>
+						<th scope="col">Bidder</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -627,7 +628,8 @@
 						<td th:text="${mtchlist.user_opinion1}">#</td>
 						<td th:text="${mtchlist.user_opinion2}">#</td>
 						<td th:text="${mtchlist.match_id}">#</td>
-						<td><a
+						<td th:text="${mtchlist.bidby}">#</td>
+						<td><a style="color: red; font-weight:bold;text-decoration:none;"
 							th:href="|@{cancel_bid/{b_id}(b_id=${mtchlist.user_id})}|">Cancel
 								bid</a></td>
 					</tr>

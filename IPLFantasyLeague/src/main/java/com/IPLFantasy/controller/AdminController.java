@@ -101,7 +101,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/createTournament")
-	public ResponseEntity<String> createTournament(@RequestBody Tournaments tournaments) {
+	public ResponseEntity<String> createTournament(Tournaments tournaments) {
 		
 		adminService.createTournaments(tournaments);
 		return new ResponseEntity<String>("Tournament Created Successfully!!!", HttpStatus.OK);
