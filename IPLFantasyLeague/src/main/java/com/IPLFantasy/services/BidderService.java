@@ -33,7 +33,7 @@ public interface BidderService {
 
 	public List<Bidder> getBidders();
 
-	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException;
+	public Bidder loginBidder(Bidder login)  throws UsernameNotFoundException, IncorrectPasswordException ;
 
 
 

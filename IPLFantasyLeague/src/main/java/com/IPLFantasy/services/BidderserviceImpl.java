@@ -98,19 +98,22 @@ public class BidderserviceImpl implements BidderService {
 	}
 
 	@Override
-	public Boolean loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
+	public Bidder loginBidder(Bidder login)  throws UsernameNotFoundException, IncorrectPasswordException  {
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
 
 		Bidder bident = dao.findByUserName(login.getUserName());
 		if (bident == null) {
-			throw new UsernameNotFoundException("username not found");
+			 throw new UsernameNotFoundException("username not found"); 
 		} else {
 			if (!passencoder.matches(login.getPassword(), bident.getPassword())) {
-				throw new IncorrectPasswordException("incorrrect password");
+				 throw new IncorrectPasswordException("incorrrect password"); 
 			}
-			return null;
+			
+			
+			
 		}
-
+		return bident;
+		
 	}
 
 	@Override

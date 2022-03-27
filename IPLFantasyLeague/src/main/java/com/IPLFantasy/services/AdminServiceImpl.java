@@ -65,7 +65,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Boolean loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException {
+	public Admin loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException {
 		// TODO Auto-generated method stub
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
 	
@@ -77,7 +77,7 @@ public class AdminServiceImpl implements AdminService {
 			if(!passencoder.matches(admin.getPassword(), adment.getPassword())){
 				throw new IncorrectPasswordException("incorrrect password");
 			}
-		return null;
+		return adment;
 	}
 
 	}

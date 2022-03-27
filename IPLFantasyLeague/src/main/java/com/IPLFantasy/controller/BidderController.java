@@ -6,6 +6,9 @@ import java.util.Random;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -61,49 +65,70 @@ public class BidderController {
 	}
 
 	@PostMapping("/login")
-	public ModelAndView loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
-		
-		
-		return new ModelAndView("redirect:dashboard", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
+	public ModelAndView loginBidder(Bidder login, HttpSession httpSession)
+			throws UsernameNotFoundException, IncorrectPasswordException {
+
+		Bidder loginBidder = service.loginBidder(login);
+		ModelAndView modelAndView ;
+		if (loginBidder == null) {
+			System.out.println("Invalid Details,Please try again!!");
+			modelAndView=new ModelAndView("redirect:login");
+		} else {
+			httpSession.setAttribute("currentuser", loginBidder);
+			modelAndView = new ModelAndView("redirect:dashboard", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
+		}
+		return modelAndView;
 
 	}
+
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		session.invalidate();
+		return "redirect:/bidder";
+	}
+
 	@GetMapping("/dashboard")
-	public String getBidderDashboard(Model model) {
+	public String getBidderDashboard(Model model,HttpSession session) {
+		Bidder bidder = (Bidder) session.getAttribute("currentuser");
+		if(bidder==null) {
+			
+			return "login";
+		}
+		model.addAttribute("user", bidder);
 		System.out.println(model.getAttribute("msg"));
 		List<Bidder> listBidders = service.getBidders();
 		model.addAttribute("bidderlist", listBidders);
 		List<ScheduleDTO> scheduled = service.getScheduled();
-		
+
 		List<Match> matchsDetails = service.getMatchsDetails();
 		List<BidDTO> bid = service.getBid();
-		
+
 		model.addAttribute("matchlist", scheduled);
-		List<String> playerlist=new ArrayList<>();
-		List<String> teamlist=new ArrayList<>();
-		
-		
-		for(ScheduleDTO x:scheduled) {
-			 String team_players = x.getTeamdetails().getTeam_players();
-			 String team_name = x.getTeamdetails().getTeam_name();
+		List<String> playerlist = new ArrayList<>();
+		List<String> teamlist = new ArrayList<>();
+
+		for (ScheduleDTO x : scheduled) {
+			String team_players = x.getTeamdetails().getTeam_players();
+			String team_name = x.getTeamdetails().getTeam_name();
 			String team_name2 = x.getTeamdetails2().getTeam_name();
-			
-			 StringTokenizer stringTokenizer= new StringTokenizer(team_players, ",");
-			 
-			 while(stringTokenizer.hasMoreTokens()) {
-				 playerlist.add(stringTokenizer.nextToken());
-			 }
-			 if(!teamlist.contains(team_name)) {
-			 teamlist.add(team_name);
-			 }
-			 if(!teamlist.contains(team_name2)) {
-			 teamlist.add(team_name2);
-			 }
-			 
+
+			StringTokenizer stringTokenizer = new StringTokenizer(team_players, ",");
+
+			while (stringTokenizer.hasMoreTokens()) {
+				playerlist.add(stringTokenizer.nextToken());
+			}
+			if (!teamlist.contains(team_name)) {
+				teamlist.add(team_name);
+			}
+			if (!teamlist.contains(team_name2)) {
+				teamlist.add(team_name2);
+			}
+
 		}
-		model.addAttribute("plyrlist",playerlist);
-		model.addAttribute("teamlist",teamlist);
-		model.addAttribute("mtchdtls",matchsDetails);
-		model.addAttribute("bid",bid);
+		model.addAttribute("plyrlist", playerlist);
+		model.addAttribute("teamlist", teamlist);
+		model.addAttribute("mtchdtls", matchsDetails);
+		model.addAttribute("bid", bid);
 		return "bidderpage";
 	}
 
@@ -121,7 +146,7 @@ public class BidderController {
 
 	@PostMapping("/bid")
 	public ResponseEntity<String> userBid(Bid bid) {
-		
+
 		service.userBid(bid);
 		return new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
 	}

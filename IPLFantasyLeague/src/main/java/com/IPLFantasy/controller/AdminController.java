@@ -1,6 +1,11 @@
 package com.IPLFantasy.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,15 +54,36 @@ public class AdminController {
 	}
 
 	@PostMapping("/login")
-	public ModelAndView loginAdmin(Admin admin )
+	public ModelAndView loginAdmin(Admin admin, Model model, HttpSession httpSession )
 			throws UsernameNotFoundException, IncorrectPasswordException {
-		adminService.loginAdmin(admin);
 		
-		return new ModelAndView("redirect:dashboard","msg",new ResponseEntity<String>("logged in",HttpStatus.OK));
+		
+		Admin loginAdmin = adminService.loginAdmin(admin);
+		ModelAndView modelAndView ;
+		if (loginAdmin == null) {
+			System.out.println("Invalid Details,Please try again!!");
+			modelAndView=new ModelAndView("redirect:login");
+		} else {
+		httpSession.setAttribute("currentuser", loginAdmin);
+		modelAndView=new ModelAndView("redirect:dashboard","msg",new ResponseEntity<String>("logged in",HttpStatus.OK));
+		}
+		return modelAndView;
+	}
+	@RequestMapping(value="/logout",method=RequestMethod.GET)
+	public String logout(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		session.invalidate();	    
+		return "redirect:/admin";
 	}
 	@GetMapping("/dashboard")
-	public String getBidderDashboard(Model model) {
-		System.out.println(model.getAttribute("msg"));
+	public String getBidderDashboard(Model model,HttpSession session) {
+		
+		Admin admin = (Admin) session.getAttribute("currentuser");
+		if(admin==null) {
+			
+			return "login";
+		}
+		model.addAttribute("user", admin);
+//		System.out.println(model.getAttribute("msg"));
 		List<Admin> admins= adminService.getAdmindetails();
 		model.addAttribute("adminlist",admins);
 		List<TeamDetails> teams = adminService.getTeams();
@@ -67,6 +94,7 @@ public class AdminController {
 		model.addAttribute("mtchschdl",matchSchedule);
 		return "adminpage";
 	}
+	
 	@GetMapping("/details")
 	public List<Admin> getAdmindetails() {
 		return adminService.getAdmindetails();
@@ -74,7 +102,7 @@ public class AdminController {
 
 	@PostMapping("/createTournament")
 	public ResponseEntity<String> createTournament(@RequestBody Tournaments tournaments) {
-
+		
 		adminService.createTournaments(tournaments);
 		return new ResponseEntity<String>("Tournament Created Successfully!!!", HttpStatus.OK);
 	}

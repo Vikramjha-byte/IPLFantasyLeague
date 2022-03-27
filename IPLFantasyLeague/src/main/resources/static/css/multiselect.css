@@ -1,0 +1,12 @@
+@charset "ISO-8859-1";
+
+.multi_select_box{
+	width:400 px !important;
+	
+	}
+	.multi_select_box select{
+	width:100%;
+	}
+	.multi_select_box button{
+	padding: 15px 25px;
+	}

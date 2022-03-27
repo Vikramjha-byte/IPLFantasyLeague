@@ -27,6 +27,8 @@ public class AdminSecurityConfig extends WebSecurityConfigurerAdapter {
 		.anyRequest()
 		.hasRole("ADMIN")
 		
+		
+		
 		.and()
 		.formLogin()
 		.loginPage("/login")

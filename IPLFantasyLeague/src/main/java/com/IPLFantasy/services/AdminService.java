@@ -18,7 +18,7 @@ public interface AdminService {
 
 	public void createTeams(TeamDetails team);
 
-	Boolean loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException;
+	Admin loginAdmin(Admin admin) throws UsernameNotFoundException, IncorrectPasswordException;
 
 	public List<Admin> getAdmindetails();
 

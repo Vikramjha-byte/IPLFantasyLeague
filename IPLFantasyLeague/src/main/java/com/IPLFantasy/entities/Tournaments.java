@@ -10,55 +10,64 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+
 
 @Entity
 public class Tournaments {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int tournamentsId;
-	public int numOfTeams;
-	public Date duration;
+	private Integer tournament_id;
+	
+	private Integer number_of_qualifiers;
+	
+	private Integer number_of_teams;
+	private Integer number_of_matches_completed;
+	
+	@OneToOne
+	@JoinColumn(name="match_id")
+	private Match match_id;
 
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "mId")
-	private List<Match> matches;
-
-	public List<Match> getMatches() {
-		return matches;
+	public Integer getTournament_id() {
+		return tournament_id;
 	}
 
-	public void setMatches(List<Match> matches) {
-		this.matches = matches;
+	public void setTournament_id(Integer tournament_id) {
+		this.tournament_id = tournament_id;
 	}
 
-	public int getTournamentsId() {
-		return tournamentsId;
+	public Integer getNumber_of_qualifiers() {
+		return number_of_qualifiers;
 	}
 
-	public void setTournamentsId(int tournamentsId) {
-		this.tournamentsId = tournamentsId;
+	public void setNumber_of_qualifiers(Integer number_of_qualifiers) {
+		this.number_of_qualifiers = number_of_qualifiers;
 	}
 
-	public int getNumOfTeams() {
-		return numOfTeams;
+	public Integer getNumber_of_teams() {
+		return number_of_teams;
 	}
 
-	public void setNumOfTeams(int numOfTeams) {
-		this.numOfTeams = numOfTeams;
+	public void setNumber_of_teams(Integer number_of_teams) {
+		this.number_of_teams = number_of_teams;
 	}
 
-	public Date getDuration() {
-		return duration;
+	public Integer getNumber_of_matches_completed() {
+		return number_of_matches_completed;
 	}
 
-	public void setDuration(Date duration) {
-		this.duration = duration;
+	public void setNumber_of_matches_completed(Integer number_of_matches_completed) {
+		this.number_of_matches_completed = number_of_matches_completed;
 	}
 
-	@Override
-	public String toString() {
-		return "Tournaments [tournamentsId=" + tournamentsId + ", numOfTeams=" + numOfTeams + ", duration=" + duration
-				+ ", matches=" + matches + "]";
+	public Match getMatch_id() {
+		return match_id;
 	}
+
+	public void setMatch_id(Match match_id) {
+		this.match_id = match_id;
+	}
+	
 
 }
