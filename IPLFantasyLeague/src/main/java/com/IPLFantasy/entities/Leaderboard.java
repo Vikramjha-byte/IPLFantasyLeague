@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 
 @Entity
 public class Leaderboard {
@@ -16,26 +19,27 @@ public class Leaderboard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int lId;
-	public int bidderId;
-	public int bidsParticipated;
-	public int bidsWon;
-	public int bidsLost;
-	public double percentile;
-	public int bidder_ranking;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "bId")
-	private List<Bidder> bidders;
+    @OneToOne
+    @JoinColumn(name="bidder_name")
+	public Bidder bidder;
+    
+    @OneToOne
+    @JoinColumn(name="bidder_points")
+    public Bid bid;
 	
 	
-
-	public List<Bidder> getBidders() {
-		return bidders;
-	}
-
-	public void setBidders(List<Bidder> bidders) {
-		this.bidders = bidders;
-	}
+    @OneToOne
+    @JoinColumn(name="bids_participated")
+    public Bid bid2;
+    
+    @OneToOne
+    @JoinColumn(name="bids_won")
+    public Bid bid3;
+	
+    @OneToOne
+    @JoinColumn(name="percentile")
+    public Bid bid4;
 
 	public int getlId() {
 		return lId;
@@ -45,59 +49,51 @@ public class Leaderboard {
 		this.lId = lId;
 	}
 
-	public int getBidderId() {
-		return bidderId;
+	public Bidder getBidder() {
+		return bidder;
 	}
 
-	public void setBidderId(int bidderId) {
-		this.bidderId = bidderId;
+	public void setBidder(Bidder bidder) {
+		this.bidder = bidder;
 	}
 
-	public int getBidsParticipated() {
-		return bidsParticipated;
+	public Bid getBid() {
+		return bid;
 	}
 
-	public void setBidsParticipated(int bidsParticipated) {
-		this.bidsParticipated = bidsParticipated;
+	public void setBid(Bid bid) {
+		this.bid = bid;
 	}
 
-	public int getBidsWon() {
-		return bidsWon;
+	public Bid getBid2() {
+		return bid2;
 	}
 
-	public void setBidsWon(int bidsWon) {
-		this.bidsWon = bidsWon;
+	public void setBid2(Bid bid2) {
+		this.bid2 = bid2;
 	}
 
-	public int getBidsLost() {
-		return bidsLost;
+	public Bid getBid3() {
+		return bid3;
 	}
 
-	public void setBidsLost(int bidsLost) {
-		this.bidsLost = bidsLost;
+	public void setBid3(Bid bid3) {
+		this.bid3 = bid3;
 	}
 
-	public double getPercentile() {
-		return percentile;
+	public Bid getBid4() {
+		return bid4;
 	}
 
-	public void setPercentile(double percentile) {
-		this.percentile = percentile;
-	}
-
-	public int getBidder_ranking() {
-		return bidder_ranking;
-	}
-
-	public void setBidder_ranking(int bidder_ranking) {
-		this.bidder_ranking = bidder_ranking;
+	public void setBid4(Bid bid4) {
+		this.bid4 = bid4;
 	}
 
 	@Override
 	public String toString() {
-		return "Leaderboard [lId=" + lId + ", bidderId=" + bidderId + ", bidsParticipated=" + bidsParticipated
-				+ ", bidsWon=" + bidsWon + ", bidsLost=" + bidsLost + ", percentile=" + percentile + ", bidder_ranking="
-				+ bidder_ranking + ", bidders=" + bidders + "]";
+		return "Leaderboard [lId=" + lId + ", bidder=" + bidder + ", bid=" + bid + ", bid2=" + bid2 + ", bid3=" + bid3
+				+ ", bid4=" + bid4 + "]";
 	}
-
+    
+    
 }

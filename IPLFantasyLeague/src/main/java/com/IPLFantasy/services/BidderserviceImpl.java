@@ -5,6 +5,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,7 +37,7 @@ public class BidderserviceImpl implements BidderService {
 
 	@Autowired
 	private BidderDao dao;
-
+	
 	@Autowired
 	private MatchScheduleDao scheduleDAO;
 
@@ -49,11 +51,13 @@ public class BidderserviceImpl implements BidderService {
 
 	@Autowired
 	private LeaderboardDao lDao;
-List<Bidder> bidderlist= new ArrayList<Bidder>();
+
+	List<Bidder> bidderlist = new ArrayList<Bidder>();
+
 	@Override
-	public Bidder registerBidder(Bidder bidder)  {
+	public Bidder registerBidder(Bidder bidder) {
 		// TODO Auto-generated method stub
-		
+
 		return dao.save(bidder);
 	}
 
@@ -66,6 +70,7 @@ List<Bidder> bidderlist= new ArrayList<Bidder>();
 	@Override
 	public void userBid(Bid bid) {
 		// TODO Auto-generated method stub
+
 		bidDao.save(bid);
 	}
 
@@ -91,6 +96,9 @@ List<Bidder> bidderlist= new ArrayList<Bidder>();
 	@Override
 	public List<Leaderboard> getBidderBoard() {
 		// TODO Auto-generated method stub
+		
+		
+System.out.println((List<Leaderboard>) lDao.findAll());
 		return (List<Leaderboard>) lDao.findAll();
 	}
 
@@ -101,22 +109,20 @@ List<Bidder> bidderlist= new ArrayList<Bidder>();
 	}
 
 	@Override
-	public Bidder loginBidder(Bidder login)  throws UsernameNotFoundException, IncorrectPasswordException  {
+	public Bidder loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException {
 		PasswordEncoder passencoder = new BCryptPasswordEncoder();
 
 		Bidder bident = dao.findByUserName(login.getUserName());
 		if (bident == null) {
-			 throw new UsernameNotFoundException("username not found"); 
+			throw new UsernameNotFoundException("username not found");
 		} else {
 			if (!passencoder.matches(login.getPassword(), bident.getPassword())) {
-				 throw new IncorrectPasswordException("incorrrect password"); 
+				throw new IncorrectPasswordException("incorrrect password");
 			}
-			
-			
-			
+
 		}
 		return bident;
-		
+
 	}
 
 	@Override
@@ -142,7 +148,15 @@ List<Bidder> bidderlist= new ArrayList<Bidder>();
 	@Override
 	public Match getMatchsDetailsbymatchid(int matchid) {
 		// TODO Auto-generated method stub
-		return  matchDao.getById(matchid);
+		return matchDao.getById(matchid);
+	}
+
+	
+
+	@Override
+	public Bid getbyid(Integer b_id) {
+		// TODO Auto-generated method stub
+		return  bidDao.getById(b_id);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.IPLFantasy.controller;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -38,8 +39,10 @@ import com.IPLFantasy.DTO.BidDTO;
 import com.IPLFantasy.DTO.ScheduleDTO;
 import com.IPLFantasy.entities.Bid;
 import com.IPLFantasy.entities.Bidder;
+import com.IPLFantasy.entities.Leaderboard;
 import com.IPLFantasy.entities.Match;
 import com.IPLFantasy.entities.TeamDetails;
+import com.IPLFantasy.entities.TeamPoints;
 import com.IPLFantasy.exceptions.IncorrectPasswordException;
 import com.IPLFantasy.exceptions.LoginException;
 import com.IPLFantasy.exceptions.RegistrationException;
@@ -53,6 +56,8 @@ public class BidderController {
 
 	@Autowired
 	private BidderService service;
+	
+	
 
 	@PostMapping("/register")
 	public String registerBidder(Bidder bidder) {
@@ -99,7 +104,10 @@ public class BidderController {
 		Bidder listBidders = service.getBidderbyuserId(bidder.getBidderId());
 		model.addAttribute("bidderlist", listBidders);
 		List<ScheduleDTO> scheduled = service.getScheduled();
-
+		List<TeamPoints> teamPoints = service.getTeamPoints();
+		List<TeamPoints> collect = teamPoints.stream()
+		.sorted(Comparator.comparingInt(TeamPoints::getPoints).reversed())
+		.collect(Collectors.toList());
 		List<Match> matchsDetails = service.getMatchsDetails();
 		List<BidDTO> bid = service.getBidbyuserId(bidder.getBidderId());
 
@@ -125,10 +133,12 @@ public class BidderController {
 			}
 
 		}
+		
 		model.addAttribute("plyrlist", playerlist);
 		model.addAttribute("teamlist", teamlist);
 		model.addAttribute("mtchdtls", matchsDetails);
 		model.addAttribute("bid", bid);
+		model.addAttribute("teampoints", collect);
 		return "bidderpage";
 	}
 
@@ -150,7 +160,7 @@ public class BidderController {
 	    Match matchsDetails = service.getMatchsDetailsbymatchid(matchid);
 		ResponseEntity<String> responseEntity;
 		if(matchsDetails.getStatus().equals("Not yet started")) {
-			
+		
 			service.userBid(bid);
 			responseEntity = new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
 		}else {
@@ -167,8 +177,17 @@ public class BidderController {
 
 	@GetMapping("/cancel_bid/{b_id}")
 	public ResponseEntity<String> cancelBid(@PathVariable Integer b_id) {
+		Bid getbyid = service.getbyid(b_id);
+		ResponseEntity<String> entity;
+		Integer match_id = getbyid.getMatch_id();
+		Match match = service.getMatchsDetailsbymatchid(match_id);
+		if(match.getStatus().equals("Not yet started")) {
 		service.cancelBid(b_id);
-		return new ResponseEntity<String>("Bid Cancelled!!", HttpStatus.OK);
+		entity=new  ResponseEntity<String>("Bid Cancelled!!", HttpStatus.OK);
+		}else {
+			entity=new  ResponseEntity<String>("Time Up!!", HttpStatus.OK);
+		}
+		return entity;
 	}
 
 	@GetMapping("/view_leader_board_team")

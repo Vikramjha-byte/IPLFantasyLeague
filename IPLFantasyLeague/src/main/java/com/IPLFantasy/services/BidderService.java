@@ -18,8 +18,6 @@ public interface BidderService {
 
 	public Bidder registerBidder(Bidder bidder);
 
-	
-
 	public List<ScheduleDTO> getScheduled();
 
 	public void userBid(Bid bid);
@@ -34,22 +32,17 @@ public interface BidderService {
 
 	public List<Bidder> getBidders();
 
-	public Bidder loginBidder(Bidder login)  throws UsernameNotFoundException, IncorrectPasswordException ;
-
-
+	public Bidder loginBidder(Bidder login) throws UsernameNotFoundException, IncorrectPasswordException;
 
 	public List<BidDTO> getBid();
 
-
-
 	public Bidder getBidderbyuserId(int bidderId);
-
-
 
 	public List<BidDTO> getBidbyuserId(int bidderId);
 
-
-
 	public Match getMatchsDetailsbymatchid(int matchid);
+
+
+	public Bid getbyid(Integer b_id);
 
 }

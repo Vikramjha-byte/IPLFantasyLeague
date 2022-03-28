@@ -152,7 +152,7 @@ public class AdminController {
 	}
 
 	@PostMapping("/result")
-	public ResponseEntity<String> matchResult(@RequestBody TeamPoints points) {
+	public ResponseEntity<String> matchResult( TeamPoints points) {
 		adminService.matchResult(points);
 		return new ResponseEntity<String>("Result Added Successfully!!!", HttpStatus.OK);
 	}

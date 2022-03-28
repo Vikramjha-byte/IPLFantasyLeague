@@ -9,6 +9,7 @@ public class BidDTO {
 	private String user_opinion1;
 	private String user_opinion2;
 	private Integer match_id;
+	
 
 	public Integer getUser_id() {
 		return user_id;
