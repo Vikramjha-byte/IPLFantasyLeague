@@ -37,6 +37,8 @@ public class BidUtils {
 		bident.setUser_opinion1(biddto.getUser_opinion1());
 		bident.setUser_opinion2(biddto.getUser_opinion2());		
 		bident.setMatch_id(biddto.getMatch_id());
+		bident.setBidby(biddto.getBidby());
+		bident.setResult(biddto.getResult());
 		return bident;
 	}
 	public static BidDTO convertToBidEntityDto(Bid biddto) {
@@ -45,6 +47,8 @@ public class BidUtils {
 		bident.setUser_opinion1(biddto.getUser_opinion1());
 		bident.setUser_opinion2(biddto.getUser_opinion2());		
 		bident.setMatch_id(biddto.getMatch_id());
+		bident.setBidby(biddto.getBidby());
+		bident.setResult(biddto.getResult());
 		return bident;
 	}
 

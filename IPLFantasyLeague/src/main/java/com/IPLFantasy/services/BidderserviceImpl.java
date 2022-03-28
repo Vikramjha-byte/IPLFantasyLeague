@@ -159,4 +159,28 @@ System.out.println((List<Leaderboard>) lDao.findAll());
 		return  bidDao.getById(b_id);
 	}
 
+	@Override
+	public void saveLeaderboard(Leaderboard leaderboard) {
+		// TODO Auto-generated method stub
+		lDao.save(leaderboard);
+	}
+
+	@Override
+	public void updateleaderboardbyid(int lid, Leaderboard leaderboard) {
+		// TODO Auto-generated method stub
+		Leaderboard byId = lDao.getById(lid);
+		byId.setBidder_name(leaderboard.getBidder_name());
+		byId.setBidder_points(leaderboard.getBidder_points());
+		byId.setBids_participated(leaderboard.getBids_participated());
+		byId.setBids_won(leaderboard.getBids_won());
+		byId.setPercentile(leaderboard.getPercentile());
+		lDao.save(byId);
+	}
+
+	@Override
+	public List<Leaderboard> getLeaders() {
+		// TODO Auto-generated method stub
+		return lDao.findAll();
+	}
+
 }

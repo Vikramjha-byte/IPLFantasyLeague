@@ -92,6 +92,8 @@ public class AdminController {
 		model.addAttribute("lstbid",biddings);
 		List<MatchSchedule> matchSchedule = adminService.getMatchSchedule();
 		model.addAttribute("mtchschdl",matchSchedule);
+		List<Match> matchsDetails = adminService.getMatchsDetails();
+		model.addAttribute("mtchdtls",matchsDetails);
 		return "adminpage";
 	}
 	
@@ -150,7 +152,11 @@ public class AdminController {
 		adminService.cancelMatch(match_id);
 		return new ResponseEntity<>("Match canceled!!!", HttpStatus.OK);
 	}
-
+	@GetMapping("/updatematch/{match_id}/{winner}")
+	public ResponseEntity<String> UpdateMatch(@RequestParam("match_id") Integer match_id, String winner) {
+		adminService.updateMatch(match_id,winner);
+		return new ResponseEntity<>("Match canceled!!!", HttpStatus.OK);
+	}
 	@PostMapping("/result")
 	public ResponseEntity<String> matchResult( TeamPoints points) {
 		adminService.matchResult(points);

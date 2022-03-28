@@ -45,4 +45,12 @@ public interface BidderService {
 
 	public Bid getbyid(Integer b_id);
 
+	public void saveLeaderboard(Leaderboard leaderboard);
+
+	public void updateleaderboardbyid(int lid, Leaderboard leaderboard);
+
+	public List<Leaderboard> getLeaders();
+
+	
+
 }

@@ -56,8 +56,6 @@ public class BidderController {
 
 	@Autowired
 	private BidderService service;
-	
-	
 
 	@PostMapping("/register")
 	public String registerBidder(Bidder bidder) {
@@ -74,13 +72,14 @@ public class BidderController {
 			throws UsernameNotFoundException, IncorrectPasswordException {
 
 		Bidder loginBidder = service.loginBidder(login);
-		ModelAndView modelAndView ;
+		ModelAndView modelAndView;
 		if (loginBidder == null) {
 			System.out.println("Invalid Details,Please try again!!");
-			modelAndView=new ModelAndView("redirect:login");
+			modelAndView = new ModelAndView("redirect:login");
 		} else {
 			httpSession.setAttribute("currentuser", loginBidder);
-			modelAndView = new ModelAndView("redirect:dashboard", "msg", new ResponseEntity<String>("logged in", HttpStatus.OK));
+			modelAndView = new ModelAndView("redirect:dashboard", "msg",
+					new ResponseEntity<String>("logged in", HttpStatus.OK));
 		}
 		return modelAndView;
 
@@ -93,10 +92,10 @@ public class BidderController {
 	}
 
 	@GetMapping("/dashboard")
-	public String getBidderDashboard(Model model,HttpSession session) {
+	public String getBidderDashboard(Model model, HttpSession session) {
 		Bidder bidder = (Bidder) session.getAttribute("currentuser");
-		if(bidder==null) {
-			
+		if (bidder == null) {
+
 			return "login";
 		}
 		model.addAttribute("user", bidder);
@@ -105,9 +104,8 @@ public class BidderController {
 		model.addAttribute("bidderlist", listBidders);
 		List<ScheduleDTO> scheduled = service.getScheduled();
 		List<TeamPoints> teamPoints = service.getTeamPoints();
-		List<TeamPoints> collect = teamPoints.stream()
-		.sorted(Comparator.comparingInt(TeamPoints::getPoints).reversed())
-		.collect(Collectors.toList());
+		List<TeamPoints> collect = teamPoints.stream().sorted(Comparator.comparingInt(TeamPoints::getPoints).reversed())
+				.collect(Collectors.toList());
 		List<Match> matchsDetails = service.getMatchsDetails();
 		List<BidDTO> bid = service.getBidbyuserId(bidder.getBidderId());
 
@@ -133,7 +131,7 @@ public class BidderController {
 			}
 
 		}
-		
+
 		model.addAttribute("plyrlist", playerlist);
 		model.addAttribute("teamlist", teamlist);
 		model.addAttribute("mtchdtls", matchsDetails);
@@ -155,18 +153,20 @@ public class BidderController {
 	}
 
 	@PostMapping("/bid")
-	public ResponseEntity<String> userBid(Bid bid,HttpSession httpSession) {
-		int matchid= bid.getMatch_id();
-	    Match matchsDetails = service.getMatchsDetailsbymatchid(matchid);
+	public ResponseEntity<String> userBid(Bid bid, HttpSession httpSession) {
+		int matchid = bid.getMatch_id();
+		Bidder bidder = (Bidder) httpSession.getAttribute("currentuser");
+		List<BidDTO> bidbyuserId = service.getBidbyuserId(bidder.getBidderId());
+		Match matchsDetails = service.getMatchsDetailsbymatchid(matchid);
 		ResponseEntity<String> responseEntity;
-		if(matchsDetails.getStatus().equals("Not yet started")) {
-		
+		if (matchsDetails.getStatus().equals("Not yet started")) {
+			bid.setResult("Pending");
 			service.userBid(bid);
 			responseEntity = new ResponseEntity<>("BID Successful!!", HttpStatus.OK);
-		}else {
+		} else {
 			responseEntity = new ResponseEntity<>("Time UP!!", HttpStatus.BAD_REQUEST);
 		}
-		
+
 		return responseEntity;
 	}
 
@@ -181,11 +181,11 @@ public class BidderController {
 		ResponseEntity<String> entity;
 		Integer match_id = getbyid.getMatch_id();
 		Match match = service.getMatchsDetailsbymatchid(match_id);
-		if(match.getStatus().equals("Not yet started")) {
-		service.cancelBid(b_id);
-		entity=new  ResponseEntity<String>("Bid Cancelled!!", HttpStatus.OK);
-		}else {
-			entity=new  ResponseEntity<String>("Time Up!!", HttpStatus.OK);
+		if (match.getStatus().equals("Not yet started")) {
+			service.cancelBid(b_id);
+			entity = new ResponseEntity<String>("Bid Cancelled!!", HttpStatus.OK);
+		} else {
+			entity = new ResponseEntity<String>("Time Up!!", HttpStatus.OK);
 		}
 		return entity;
 	}
@@ -196,7 +196,44 @@ public class BidderController {
 	}
 
 	@GetMapping("/view_leader_board_bidder")
-	public ResponseEntity<?> getBidderLeaderBoard() {
-		return new ResponseEntity<>(service.getBidderBoard(), HttpStatus.OK);
+	public String getBidderLeaderBoard(HttpSession session, Model model) {
+		List<Leaderboard> bidderBoard = service.getBidderBoard();
+
+		Bidder bidder = (Bidder) session.getAttribute("currentuser");
+
+		Leaderboard leaderboard = new Leaderboard();
+		if (bidderBoard != null) {
+			for (Leaderboard lboard : bidderBoard) {
+				if (lboard.getBidder_name().equals(bidder.getName())) {
+					int lid = lboard.getlId();
+					leaderboard.setBidder_name(bidder.getName());
+					int bid_participated = (int) service.getBidbyuserId(bidder.getBidderId()).stream().count();
+					leaderboard.setBids_participated(bid_participated);
+					int bidWon = (int) service.getBidbyuserId(bidder.getBidderId()).stream()
+							.filter(x -> x.getResult().equals("Won")).count();
+					leaderboard.setBids_won(bidWon);
+					double percent = ((double) bidWon / (double) bid_participated);
+					leaderboard.setPercentile(percent);
+					service.updateleaderboardbyid(lid, leaderboard);
+					List<Leaderboard> leaders = service.getLeaders();
+					model.addAttribute("leader", leaders);
+					return "view_leader_board_bidder";
+
+				}
+			}
+		}
+		leaderboard.setBidder_name(bidder.getName());
+		int bid_participated = (int) service.getBidbyuserId(bidder.getBidderId()).stream().count();
+		leaderboard.setBids_participated(bid_participated);
+		int bidWon = (int) service.getBidbyuserId(bidder.getBidderId()).stream()
+				.filter(x -> x.getResult().equals("Won")).count();
+		leaderboard.setBids_won(bidWon);
+		double percent = ((double) bidWon / (double) bid_participated);
+		leaderboard.setPercentile(percent);
+		service.saveLeaderboard(leaderboard);
+
+		List<Leaderboard> leaders = service.getLeaders();
+		model.addAttribute("leader", leaders);
+		return "view_leader_board_bidder";
 	}
 }

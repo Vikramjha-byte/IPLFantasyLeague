@@ -21,6 +21,13 @@ public class Bid {
 	private String user_opinion2;
 	private Integer match_id;
 	private Integer bidby;
+	private String result;
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
 	public Integer getUser_id() {
 		return user_id;
 	}

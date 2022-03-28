@@ -44,4 +44,8 @@ public interface AdminService {
 
 	public Admin getAdmindetailsbyid(int admin_id);
 
+	public List<Match> getMatchsDetails();
+
+	public void updateMatch(Integer match_id, String winner);
+
 }

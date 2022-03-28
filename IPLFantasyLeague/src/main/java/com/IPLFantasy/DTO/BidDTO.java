@@ -9,10 +9,27 @@ public class BidDTO {
 	private String user_opinion1;
 	private String user_opinion2;
 	private Integer match_id;
-	
+	private Integer bidby;
+	private String result;
 
 	public Integer getUser_id() {
 		return user_id;
+	}
+
+	public Integer getBidby() {
+		return bidby;
+	}
+
+	public void setBidby(Integer bidby) {
+		this.bidby = bidby;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
 	}
 
 	public void setUser_id(Integer user_id) {

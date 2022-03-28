@@ -18,7 +18,7 @@ public class TeamDetails {
 	private String team_name;
 	@Column(length = 50)
 	private String home_ground;
-	@Column(length = 256)
+	@Column(length = 10000)
 	private String team_players;
 	@Column(length = 50)
 	private String captain;

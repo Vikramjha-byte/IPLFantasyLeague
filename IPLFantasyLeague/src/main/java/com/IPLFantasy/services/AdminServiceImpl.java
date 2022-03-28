@@ -151,5 +151,20 @@ public class AdminServiceImpl implements AdminService {
 		return adminDao.getById(admin_id);
 	}
 
+	@Override
+	public List<Match> getMatchsDetails() {
+		// TODO Auto-generated method stub
+		return matchDao.findAll();
+	}
+
+	@Override
+	public void updateMatch(Integer match_id, String winner) {
+		// TODO Auto-generated method stub
+		Match byId = matchDao.getById(match_id);
+		byId.setWinner(winner);
+		byId.setStatus("finished");
+		matchDao.save(byId);
+	}
+
 	
 }
